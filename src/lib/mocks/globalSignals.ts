@@ -88,3 +88,15 @@ export const mockFX_USD_EGP_24M = synthMonthly(24, 47.2, 0.015, 0.6); // USD/EGP
 export const mockDietCost_24M = synthMonthly(24, 3.2, 0.01, 0.1); // USD cost of healthy diet
 export const mockFIES_24M = synthMonthly(24, 28.5, 0.05, 1.2); // % food insecurity
 export const mockCBE_FOOD_INFLATION_24M = synthMonthly(24, 8.2, -0.6, 2.1); // 8.2% food inflation trending down
+
+// NEW INDICATORS - Phase 3
+export const mockBrentCrude_24M = synthMonthly(24, 82.5, 0.15, 4.2); // USD/barrel Brent crude oil
+export const mockEgyptUnemployment_10Y = lastNYears(10).map((yy, i) => ({
+  date: String(yy),
+  value: Number(clamp(7.8 + i * 0.15 + Math.sin(i * 0.6) * 0.4, 7.0, 10.5).toFixed(1)) // % unemployment
+}));
+export const mockEgyptGDP_10Y = lastNYears(10).map((yy, i) => ({
+  date: String(yy),
+  value: Number(clamp(4.2 - i * 0.2 + Math.sin(i * 0.9) * 0.8, 2.0, 5.5).toFixed(1)) // % GDP growth
+}));
+export const mockWheatPrice_24M = synthMonthly(24, 265.0, -0.30, 8.5); // USD/ton wheat price

@@ -5,13 +5,14 @@ import { DATA_SOURCE, FORCE_MOCK, IS_DEV } from '@/config/dataMode';
 import { fetchCairoWeather } from '@/lib/feeds/openmeteo';
 import { getEgyptCpiYoY } from '@/lib/feeds/worldbank-wdi';
 import { getOwidSeries } from '@/lib/feeds/owid';
-import { fetchFFPI, fetchIMFCPI, fetchUNHCREgypt, fetchWheat, fetchFX, fetchDiet, fetchFIES, fetchCBEInflation, fetchCBEFoodInflation } from '@/lib/feeds/backend';
+import { fetchFFPI, fetchIMFCPI, fetchUNHCREgypt, fetchWheat, fetchFX, fetchDiet, fetchFIES, fetchCBEInflation, fetchCBEFoodInflation, fetchBrentCrude, fetchEgyptUnemployment, fetchEgyptGDP, fetchWheatPrice } from '@/lib/feeds/backend';
 
 // Mock data fallbacks
 import {
   mockIMF_CPI_FOOD_24M, mockCBE_INFLATION_24M, mockCBE_FOOD_INFLATION_24M, mockOpenMeteo_30D, mockUNHCR_10Y,
   mockFFPI_24M, mockWheat_24M, mockVegOil_24M, mockSugar_24M,
-  mockFX_USD_EGP_24M, mockDietCost_24M, mockFIES_24M
+  mockFX_USD_EGP_24M, mockDietCost_24M, mockFIES_24M,
+  mockBrentCrude_24M, mockEgyptUnemployment_10Y, mockEgyptGDP_10Y, mockWheatPrice_24M
 } from '@/lib/mocks/globalSignals';
 
 // Small helpers
@@ -279,6 +280,78 @@ export function useGlobalSignals() {
         staleTime: 6 * 3600 * 1000, // 6 hours
         refetchOnWindowFocus: false,
       },
+      // 10. Brent Crude Oil Price
+      {
+        queryKey: ['brent-crude'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.brent === 'live') {
+              const result = await fetchBrentCrude();
+              return result.points || mockBrentCrude_24M;
+            }
+            return mockBrentCrude_24M;
+          } catch (error) {
+            console.warn('[Brent Crude] API failed, using mock data:', error);
+            return mockBrentCrude_24M;
+          }
+        },
+        staleTime: 24 * 3600 * 1000, // 24 hours
+        refetchOnWindowFocus: false,
+      },
+      // 11. Egypt Unemployment Rate
+      {
+        queryKey: ['egypt-unemployment'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.unemployment === 'live') {
+              const result = await fetchEgyptUnemployment();
+              return result.points || mockEgyptUnemployment_10Y;
+            }
+            return mockEgyptUnemployment_10Y;
+          } catch (error) {
+            console.warn('[Egypt Unemployment] API failed, using mock data:', error);
+            return mockEgyptUnemployment_10Y;
+          }
+        },
+        staleTime: 7 * 24 * 3600 * 1000, // 7 days
+        refetchOnWindowFocus: false,
+      },
+      // 12. Egypt GDP Growth
+      {
+        queryKey: ['egypt-gdp'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.gdp === 'live') {
+              const result = await fetchEgyptGDP();
+              return result.points || mockEgyptGDP_10Y;
+            }
+            return mockEgyptGDP_10Y;
+          } catch (error) {
+            console.warn('[Egypt GDP] API failed, using mock data:', error);
+            return mockEgyptGDP_10Y;
+          }
+        },
+        staleTime: 7 * 24 * 3600 * 1000, // 7 days
+        refetchOnWindowFocus: false,
+      },
+      // 13. Global Wheat Price
+      {
+        queryKey: ['wheat-price'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.wheatPrice === 'live') {
+              const result = await fetchWheatPrice();
+              return result.points || mockWheatPrice_24M;
+            }
+            return mockWheatPrice_24M;
+          } catch (error) {
+            console.warn('[Wheat Price] API failed, using mock data:', error);
+            return mockWheatPrice_24M;
+          }
+        },
+        staleTime: 24 * 3600 * 1000, // 24 hours
+        refetchOnWindowFocus: false,
+      },
     ]
   });
 
@@ -292,6 +365,10 @@ export function useGlobalSignals() {
     dietResult,
     fiesResult,
     cbeFoodResult,
+    brentResult,
+    unemploymentResult,
+    gdpResult,
+    wheatPriceResult,
   ] = results;
 
   const ffpi = ffpiResult.data || [];
@@ -303,6 +380,10 @@ export function useGlobalSignals() {
   const fx = fxResult.data || [];
   const diet = dietResult.data || [];
   const fies = fiesResult.data || [];
+  const brent = brentResult.data || [];
+  const unemployment = unemploymentResult.data || [];
+  const gdp = gdpResult.data || [];
+  const wheatPrice = wheatPriceResult.data || [];
 
   // Enhanced debug logging
   console.log('[DEBUG] API Results Status:', {
@@ -337,6 +418,10 @@ export function useGlobalSignals() {
     fx,
     diet,
     fies,
+    brent,
+    unemployment,
+    gdp,
+    wheatPrice,
     isLoading: results.some(r => r.isLoading),
     isError: results.some(r => r.isError),
   };

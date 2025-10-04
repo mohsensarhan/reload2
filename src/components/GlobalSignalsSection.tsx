@@ -191,6 +191,80 @@ export function GlobalSignalsSection() {
           spark={(s.refugees as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
       </PageGrid>
+
+      <PageGrid cols={4} className="mb-6">
+        {/* Row C — Economic & Commodity Indicators */}
+
+        <MetricMicroCard
+          title="Brent Crude Oil"
+          value={Number((last(s.brent) as any)?.value) || 0}
+          format="number"
+          unit="USD/barrel"
+          description="Global benchmark for oil prices. Affects food transportation costs, fertilizer prices, and overall inflation. Higher oil prices increase food production and distribution costs."
+          dataStatus={getDataStatus('brent', s.isLoading, s.isError)}
+          dataSource="FRED"
+          delta={(() => {
+            const curr = last(s.brent) as any;
+            const prevVal = prev(s.brent) as any;
+            if (!curr || !prevVal || typeof curr.value !== 'number' || typeof prevVal.value !== 'number') return undefined;
+            const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
+            return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
+          })()}
+          spark={(s.brent as any[]).map(p => ({ t: p.date, v: p.value }))}
+        />
+
+        <MetricMicroCard
+          title="Global Wheat Price"
+          value={Number((last(s.wheatPrice) as any)?.value) || 0}
+          format="number"
+          unit="USD/MT"
+          description="International wheat price per metric ton. Critical for Egypt as the world's largest wheat importer. Higher prices directly impact bread subsidies and food security programs."
+          dataStatus={getDataStatus('wheatPrice', s.isLoading, s.isError)}
+          dataSource="FRED"
+          delta={(() => {
+            const curr = last(s.wheatPrice) as any;
+            const prevVal = prev(s.wheatPrice) as any;
+            if (!curr || !prevVal || typeof curr.value !== 'number' || typeof prevVal.value !== 'number') return undefined;
+            const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
+            return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
+          })()}
+          spark={(s.wheatPrice as any[]).map(p => ({ t: p.date, v: p.value }))}
+        />
+
+        <MetricMicroCard
+          title="Egypt Unemployment"
+          value={Number((last(s.unemployment) as any)?.value) || 0}
+          format="percentage"
+          description="Percentage of Egypt's labor force that is unemployed. Higher unemployment reduces household income and food purchasing power, increasing food insecurity risk."
+          dataStatus={getDataStatus('unemployment', s.isLoading, s.isError)}
+          dataSource="Our World in Data"
+          delta={(() => {
+            const curr = last(s.unemployment) as any;
+            const prevVal = prev(s.unemployment) as any;
+            if (!curr || !prevVal || typeof curr.value !== 'number' || typeof prevVal.value !== 'number') return undefined;
+            const d = curr.value - prevVal.value;
+            return { value: d, label: 'Δ', direction: d >= 0 ? 'up' as const : 'down' as const };
+          })()}
+          spark={(s.unemployment as any[]).map(p => ({ t: p.date, v: p.value }))}
+        />
+
+        <MetricMicroCard
+          title="Egypt GDP Growth"
+          value={Number((last(s.gdp) as any)?.value) || 0}
+          format="percentage"
+          description="Annual percentage change in Egypt's Gross Domestic Product. Indicates overall economic health and growth. Higher GDP growth typically correlates with improved food security and reduced poverty."
+          dataStatus={getDataStatus('gdp', s.isLoading, s.isError)}
+          dataSource="World Bank"
+          delta={(() => {
+            const curr = last(s.gdp) as any;
+            const prevVal = prev(s.gdp) as any;
+            if (!curr || !prevVal || typeof curr.value !== 'number' || typeof prevVal.value !== 'number') return undefined;
+            const d = curr.value - prevVal.value;
+            return { value: d, label: 'Δ', direction: d >= 0 ? 'up' as const : 'down' as const };
+          })()}
+          spark={(s.gdp as any[]).map(p => ({ t: p.date, v: p.value }))}
+        />
+      </PageGrid>
     </div>
   );
 }

@@ -27,3 +27,15 @@ export async function fetchCBEInflation() {
 export async function fetchCBEFoodInflation() {
   const r = await fetch(`${base}/api/cbe-food-inflation`); if (!r.ok) throw new Error('CBE food inflation'); return r.json();
 }
+export async function fetchBrentCrude() {
+  const r = await fetch(`${base}/api/brent-crude`); if (!r.ok) throw new Error('Brent Crude'); return r.json();
+}
+export async function fetchEgyptUnemployment() {
+  const r = await fetch(`${base}/api/egypt-unemployment`); if (!r.ok) throw new Error('Egypt Unemployment'); return r.json();
+}
+export async function fetchEgyptGDP() {
+  const r = await fetch(`${base}/api/egypt-gdp`); if (!r.ok) throw new Error('Egypt GDP'); return r.json();
+}
+export async function fetchWheatPrice() {
+  const r = await fetch(`${base}/api/wheat-price`); if (!r.ok) throw new Error('Wheat Price'); return r.json();
+}
