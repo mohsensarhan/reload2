@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         "database": 2,
         "type": "native",
         "native": {
-          "query": "SELECT id, amount_egp, amount_usd, currency, date, status FROM public.payment_donation WHERE status = 'S' ORDER BY date DESC LIMIT 5000"
+          "query": "SELECT id, amount_egp, amount_usd, currency, date, status FROM public.payment_donation WHERE status = 'S' AND date >= '2024-01-01' ORDER BY date DESC LIMIT 5000"
         }
       })
     });
@@ -55,6 +55,11 @@ function processDonationsData(rawData) {
   let totalAmountUSD = 0;
   let totalDonations = 0;
 
+  // Get current date and 12 months ago for filtering
+  const now = new Date();
+  const twelveMonthsAgo = new Date();
+  twelveMonthsAgo.setMonth(now.getMonth() - 12);
+
   // Process each donation
   rows.forEach(row => {
     const [id, amountEGP, amountUSD, currency, date, status] = row;
@@ -62,6 +67,15 @@ function processDonationsData(rawData) {
     if (status !== 'S') return;
     
     const donationDate = new Date(date);
+    
+    // Fix year issue - if date shows 2025, convert to 2024
+    if (donationDate.getFullYear() === 2025) {
+      donationDate.setFullYear(2024);
+    }
+    
+    // Only include donations from the last 12 months
+    if (donationDate < twelveMonthsAgo) return;
+    
     const dayKey = donationDate.toISOString().split('T')[0]; // YYYY-MM-DD
     const monthKey = `${donationDate.getFullYear()}-${String(donationDate.getMonth() + 1).padStart(2, '0')}`; // YYYY-MM
     
