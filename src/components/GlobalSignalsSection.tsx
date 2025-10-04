@@ -9,9 +9,18 @@ import { FORCE_MOCK, DATA_SOURCE } from '@/config/dataMode';
 const last = <T,>(arr: T[]) => (Array.isArray(arr) && arr.length ? arr[arr.length - 1] : undefined);
 const prev = <T,>(arr: T[]) => (Array.isArray(arr) && arr.length > 1 ? arr[arr.length - 2] : undefined);
 
-// YoY calculation helper (12 months ago) - returns percentage number
-const calcYoY = (arr: any[]): number | undefined => {
-  if (!Array.isArray(arr) || arr.length < 13) return undefined;
+// Get YoY from API data (preferred) or calculate manually as fallback
+const getYoY = (arr: any[]): number | undefined => {
+  if (!Array.isArray(arr) || arr.length === 0) return undefined;
+  
+  // First, try to get yoyChange from the latest data point (from API)
+  const latest = arr[arr.length - 1];
+  if (latest && typeof latest.yoyChange === 'number') {
+    return latest.yoyChange;
+  }
+  
+  // Fallback: calculate manually if we have enough data (12 months ago)
+  if (arr.length < 13) return undefined;
   const curr = arr[arr.length - 1];
   const yearAgo = arr[arr.length - 13];
   if (!curr || !yearAgo || typeof curr.value !== 'number' || typeof yearAgo.value !== 'number') return undefined;
@@ -52,7 +61,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.ffpi)}
+          yoyChange={getYoY(s.ffpi)}
           spark={(s.ffpi as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -71,7 +80,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.brent)}
+          yoyChange={getYoY(s.brent)}
           spark={(s.brent as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -90,7 +99,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.fx)}
+          yoyChange={getYoY(s.fx)}
           spark={(s.fx as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -109,7 +118,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.egx30)}
+          yoyChange={getYoY(s.egx30)}
           spark={(s.egx30 as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
       </PageGrid>
@@ -131,7 +140,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.wheatPrice)}
+          yoyChange={getYoY(s.wheatPrice)}
           spark={(s.wheatPrice as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -150,7 +159,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.rice)}
+          yoyChange={getYoY(s.rice)}
           spark={(s.rice as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -169,7 +178,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.cookingOil)}
+          yoyChange={getYoY(s.cookingOil)}
           spark={(s.cookingOil as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -188,7 +197,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.beef)}
+          yoyChange={getYoY(s.beef)}
           spark={(s.beef as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
       </PageGrid>
@@ -210,7 +219,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.chickenFeed)}
+          yoyChange={getYoY(s.chickenFeed)}
           spark={(s.chickenFeed as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
@@ -229,7 +238,7 @@ export function GlobalSignalsSection() {
             const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
             return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
           })()}
-          yoyChange={calcYoY(s.animalFeed)}
+          yoyChange={getYoY(s.animalFeed)}
           spark={(s.animalFeed as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
