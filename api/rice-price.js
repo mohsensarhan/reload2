@@ -2,7 +2,7 @@ export const config = { runtime: 'edge' };
 import { json, fail } from './_utils.js';
 
 // FRED API for Rice Prices
-const FRED_RICE_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PRICENPUSDM';
+const FRED_RICE_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PRICENPQUSDM';
 
 export default async function handler() {
   try {
