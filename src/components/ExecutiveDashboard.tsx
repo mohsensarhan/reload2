@@ -33,6 +33,8 @@ import {
   LazyComponentWrapper
 } from './LazyComponents';
 import { GlobalSignalsSection } from './GlobalSignalsSection';
+import { DonationsChart } from './DonationsChart';
+import { useGlobalSignals } from '@/hooks/useGlobalSignals';
 import { PageGrid } from '@/layout/PageGrid';
 
 export interface Metric {
@@ -450,6 +452,27 @@ const ExecutiveDashboard = memo(() => {
               <GlobalSignalsSection />
             </section>
 
+            {/* 2.5. DONATIONS - Online Donations Analytics */}
+            <section>
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge variant="outline" className="text-primary border-primary">2.5. Online Donations</Badge>
+                </div>
+                <h2 className="heading-lg flex items-center gap-3">
+                  <DollarSign className="w-6 h-6 text-primary" />
+                  Online Donations Analytics
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                  Real-time tracking of online donations, trends, and donor engagement patterns
+                </p>
+              </div>
+              <Suspense fallback={<AnalyticsSkeleton />}>
+                <LazyComponentWrapper>
+                  <DonationsSection />
+                </LazyComponentWrapper>
+              </Suspense>
+            </section>
+
             {/* 3. TRAJECTORY - Growth & Strategic Expansion */}
             <section>
               <div className="mb-6">
@@ -845,5 +868,31 @@ const ExecutiveDashboard = memo(() => {
 });
 
 ExecutiveDashboard.displayName = 'ExecutiveDashboard';
+
+// Donations Section Component
+const DonationsSection = memo(() => {
+  const { donations, isLoading, isError } = useGlobalSignals();
+
+  if (isLoading) {
+    return <AnalyticsSkeleton />;
+  }
+
+  if (isError || !donations) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <div className="text-center text-muted-foreground">
+            <DollarSign className="w-12 h-12 mx-auto mb-4 opacity-50" />
+            <p>Unable to load donations data</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return <DonationsChart data={donations} />;
+});
+
+DonationsSection.displayName = 'DonationsSection';
 
 export { ExecutiveDashboard };

@@ -31,6 +31,7 @@ export const DATA_SOURCE = {
   chickenFeed: 'live', // NEW: Chicken feed price
   animalFeed: 'live', // NEW: Animal feed price
   egx30:     'live',  // NEW: Egypt EGX30 stock index
+     donations: 'live',  // NEW: Online donations via /api/donations
 } as const;
 
 // Safe DEV check for logging

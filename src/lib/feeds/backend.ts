@@ -56,4 +56,6 @@ export async function fetchAnimalFeedPrice() {
 }
 export async function fetchEGX30() {
   const r = await fetch(`${base}/api/egx30`); if (!r.ok) throw new Error('EGX30'); return r.json();
-}
+}  export async function fetchDonations() {
+    const r = await fetch(`${base}/api/donations`); if (!r.ok) throw new Error('Donations'); return r.json();
+  }

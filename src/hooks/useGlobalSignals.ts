@@ -5,7 +5,7 @@ import { DATA_SOURCE, FORCE_MOCK, IS_DEV } from '@/config/dataMode';
 import { fetchCairoWeather } from '@/lib/feeds/openmeteo';
 import { getEgyptCpiYoY } from '@/lib/feeds/worldbank-wdi';
 import { getOwidSeries } from '@/lib/feeds/owid';
-import { fetchFFPI, fetchIMFCPI, fetchUNHCREgypt, fetchWheat, fetchFX, fetchDiet, fetchFIES, fetchCBEInflation, fetchCBEFoodInflation, fetchBrentCrude, fetchEgyptUnemployment, fetchEgyptGDP, fetchWheatPrice, fetchRicePrice, fetchCookingOilPrice, fetchBeefPrice, fetchChickenFeedPrice, fetchAnimalFeedPrice, fetchEGX30 } from '@/lib/feeds/backend';
+import { fetchFFPI, fetchIMFCPI, fetchUNHCREgypt, fetchWheat, fetchFX, fetchDiet, fetchFIES, fetchCBEInflation, fetchCBEFoodInflation, fetchBrentCrude, fetchEgyptUnemployment, fetchEgyptGDP, fetchWheatPrice, fetchRicePrice, fetchCookingOilPrice, fetchBeefPrice, fetchChickenFeedPrice, fetchAnimalFeedPrice, fetchEGX30, fetchDonations } from '@/lib/feeds/backend';
 
 // Mock data fallbacks
 import {
@@ -461,6 +461,24 @@ export function useGlobalSignals() {
         staleTime: 6 * 3600 * 1000, // 6 hours
         refetchOnWindowFocus: false,
       },
+      // 20. Online Donations
+      {
+        queryKey: ['donations'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.donations === 'live') {
+              const result = await fetchDonations();
+              return result || {};
+            }
+            return {};
+          } catch (error) {
+            console.warn('[Donations] API failed:', error);
+            return {};
+          }
+        },
+        staleTime: 1 * 3600 * 1000, // 1 hour
+        refetchOnWindowFocus: false,
+      },
     ]
   });
 
@@ -485,6 +503,7 @@ export function useGlobalSignals() {
     animalFeedResult,
     egx30Result,
   ] = results;
+    const donationsResult = results[results.length - 1] || { data: {} };
 
   const ffpi = ffpiResult.data || [];
   const imfFood = imfFoodResult.data || [];
@@ -505,6 +524,7 @@ export function useGlobalSignals() {
   const chickenFeed = chickenFeedResult.data || [];
   const animalFeed = animalFeedResult.data || [];
   const egx30 = egx30Result.data || [];
+    const donations = donationsResult.data || {};
 
   // Enhanced debug logging
   console.log('[DEBUG] API Results Status:', {
@@ -549,6 +569,7 @@ export function useGlobalSignals() {
     chickenFeed,
     animalFeed,
     egx30,
+       donations,
     isLoading: results.some(r => r.isLoading),
     isError: results.some(r => r.isError),
   };
