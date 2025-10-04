@@ -1,5 +1,5 @@
 export const config = { runtime: 'edge' };
-import { json, fail, csvToSeries } from './_utils.ts';
+import { json, fail, csvToSeries } from './_utils.js';
 
 // Fetch FAO FFPI page and extract the monthly CSV link
 const FFPI_PAGE = 'https://www.fao.org/worldfoodsituation/foodpricesindex/en/';
@@ -18,14 +18,14 @@ export default async function handler() {
 
     const csvUrl = new URL(m[1], FFPI_PAGE).toString();
     const r = await fetch(csvUrl, { headers: { accept:'text/csv',
-      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) VercelEdge/1.0' }});
-    if (!r.ok) return fail(502, `FAO CSV ${r.status}`);
-    const text = await r.text();
-
-    const series = csvToSeries(text);
-    const points = series.map(p => ({ date: String(p.date).slice(0,7), value: p.value }));
-    return json(points, 24 * 3600);
-  } catch (e:any) {
-    return fail(500, `FFPI error: ${e?.message || String(e)}`);
+      'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) VercelEdge/1.0' } });
+    if (!r.ok) return fail(502, `FFPI CSV ${r.status}`);
+    
+    const csv = await r.text();
+    const series = csvToSeries(csv);
+    
+    return json({ source:'FAO', unit:'index', frequency:'monthly', series });
+  } catch (e) {
+    return fail(500, e.message);
   }
 }
