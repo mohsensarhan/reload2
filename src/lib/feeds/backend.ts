@@ -39,3 +39,21 @@ export async function fetchEgyptGDP() {
 export async function fetchWheatPrice() {
   const r = await fetch(`${base}/api/wheat-price`); if (!r.ok) throw new Error('Wheat Price'); return r.json();
 }
+export async function fetchRicePrice() {
+  const r = await fetch(`${base}/api/rice-price`); if (!r.ok) throw new Error('Rice Price'); return r.json();
+}
+export async function fetchCookingOilPrice() {
+  const r = await fetch(`${base}/api/cooking-oil-price`); if (!r.ok) throw new Error('Cooking Oil Price'); return r.json();
+}
+export async function fetchBeefPrice() {
+  const r = await fetch(`${base}/api/beef-price`); if (!r.ok) throw new Error('Beef Price'); return r.json();
+}
+export async function fetchChickenFeedPrice() {
+  const r = await fetch(`${base}/api/chicken-feed-price`); if (!r.ok) throw new Error('Chicken Feed Price'); return r.json();
+}
+export async function fetchAnimalFeedPrice() {
+  const r = await fetch(`${base}/api/animal-feed-price`); if (!r.ok) throw new Error('Animal Feed Price'); return r.json();
+}
+export async function fetchEGX30() {
+  const r = await fetch(`${base}/api/egx30`); if (!r.ok) throw new Error('EGX30'); return r.json();
+}

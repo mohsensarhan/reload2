@@ -10,7 +10,7 @@ const isPreviewHost = /lovable|preview|vercel\.app|netlify\.app|onrender\.com|we
 export const FORCE_MOCK = false;
 
 export const DATA_SOURCE = {
-  openmeteo: 'live',  // ET₀ anomaly (direct)
+  openmeteo: 'live',  // ET₀ anomaly (direct) - REMOVED
   wb:        'live',  // CPI YoY (direct) - DEPRECATED, replaced by CBE
   cbe:       'live',  // NEW: Egypt inflation via /api/cbe-inflation (Central Bank of Egypt)
   cbeFood:   'live',  // NEW: CBE food inflation via /api/cbe-food-inflation (Fruits & Vegetables)
@@ -25,6 +25,12 @@ export const DATA_SOURCE = {
   unemployment: 'live', // NEW: Egypt unemployment rate
   gdp:       'live',  // NEW: Egypt GDP growth
   wheatPrice: 'live', // NEW: Global wheat price
+  rice:      'live',  // NEW: White rice price
+  cookingOil: 'live', // NEW: Cooking oil price
+  beef:      'live',  // NEW: Beef livestock price
+  chickenFeed: 'live', // NEW: Chicken feed price
+  animalFeed: 'live', // NEW: Animal feed price
+  egx30:     'live',  // NEW: Egypt EGX30 stock index
 } as const;
 
 // Safe DEV check for logging

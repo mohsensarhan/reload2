@@ -5,14 +5,15 @@ import { DATA_SOURCE, FORCE_MOCK, IS_DEV } from '@/config/dataMode';
 import { fetchCairoWeather } from '@/lib/feeds/openmeteo';
 import { getEgyptCpiYoY } from '@/lib/feeds/worldbank-wdi';
 import { getOwidSeries } from '@/lib/feeds/owid';
-import { fetchFFPI, fetchIMFCPI, fetchUNHCREgypt, fetchWheat, fetchFX, fetchDiet, fetchFIES, fetchCBEInflation, fetchCBEFoodInflation, fetchBrentCrude, fetchEgyptUnemployment, fetchEgyptGDP, fetchWheatPrice } from '@/lib/feeds/backend';
+import { fetchFFPI, fetchIMFCPI, fetchUNHCREgypt, fetchWheat, fetchFX, fetchDiet, fetchFIES, fetchCBEInflation, fetchCBEFoodInflation, fetchBrentCrude, fetchEgyptUnemployment, fetchEgyptGDP, fetchWheatPrice, fetchRicePrice, fetchCookingOilPrice, fetchBeefPrice, fetchChickenFeedPrice, fetchAnimalFeedPrice, fetchEGX30 } from '@/lib/feeds/backend';
 
 // Mock data fallbacks
 import {
   mockIMF_CPI_FOOD_24M, mockCBE_INFLATION_24M, mockCBE_FOOD_INFLATION_24M, mockOpenMeteo_30D, mockUNHCR_10Y,
   mockFFPI_24M, mockWheat_24M, mockVegOil_24M, mockSugar_24M,
   mockFX_USD_EGP_24M, mockDietCost_24M, mockFIES_24M,
-  mockBrentCrude_24M, mockEgyptUnemployment_10Y, mockEgyptGDP_10Y, mockWheatPrice_24M
+  mockBrentCrude_24M, mockEgyptUnemployment_10Y, mockEgyptGDP_10Y, mockWheatPrice_24M,
+  mockRicePrice_24M, mockCookingOilPrice_24M, mockBeefPrice_24M, mockChickenFeedPrice_24M, mockAnimalFeedPrice_24M, mockEGX30_24M
 } from '@/lib/mocks/globalSignals';
 
 // Small helpers
@@ -341,15 +342,123 @@ export function useGlobalSignals() {
           try {
             if (DATA_SOURCE.wheatPrice === 'live') {
               const result = await fetchWheatPrice();
-              return result.points || mockWheatPrice_24M;
+              return result.points || [];
             }
-            return mockWheatPrice_24M;
+            return [];
           } catch (error) {
-            console.warn('[Wheat Price] API failed, using mock data:', error);
-            return mockWheatPrice_24M;
+            console.warn('[Wheat Price] API failed:', error);
+            return [];
           }
         },
-        staleTime: 24 * 3600 * 1000, // 24 hours
+        staleTime: 24 * 3600 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      // 14. White Rice Price
+      {
+        queryKey: ['rice-price'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.rice === 'live') {
+              const result = await fetchRicePrice();
+              return result.points || [];
+            }
+            return [];
+          } catch (error) {
+            console.warn('[Rice Price] API failed:', error);
+            return [];
+          }
+        },
+        staleTime: 24 * 3600 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      // 15. Cooking Oil Price
+      {
+        queryKey: ['cooking-oil-price'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.cookingOil === 'live') {
+              const result = await fetchCookingOilPrice();
+              return result.points || [];
+            }
+            return [];
+          } catch (error) {
+            console.warn('[Cooking Oil Price] API failed:', error);
+            return [];
+          }
+        },
+        staleTime: 24 * 3600 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      // 16. Beef Price
+      {
+        queryKey: ['beef-price'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.beef === 'live') {
+              const result = await fetchBeefPrice();
+              return result.points || [];
+            }
+            return [];
+          } catch (error) {
+            console.warn('[Beef Price] API failed:', error);
+            return [];
+          }
+        },
+        staleTime: 24 * 3600 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      // 17. Chicken Feed Price
+      {
+        queryKey: ['chicken-feed-price'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.chickenFeed === 'live') {
+              const result = await fetchChickenFeedPrice();
+              return result.points || [];
+            }
+            return [];
+          } catch (error) {
+            console.warn('[Chicken Feed Price] API failed:', error);
+            return [];
+          }
+        },
+        staleTime: 24 * 3600 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      // 18. Animal Feed Price
+      {
+        queryKey: ['animal-feed-price'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.animalFeed === 'live') {
+              const result = await fetchAnimalFeedPrice();
+              return result.points || [];
+            }
+            return [];
+          } catch (error) {
+            console.warn('[Animal Feed Price] API failed:', error);
+            return [];
+          }
+        },
+        staleTime: 24 * 3600 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      // 19. Egypt EGX30 Stock Index
+      {
+        queryKey: ['egx30'],
+        queryFn: async () => {
+          try {
+            if (DATA_SOURCE.egx30 === 'live') {
+              const result = await fetchEGX30();
+              return result.points || [];
+            }
+            return [];
+          } catch (error) {
+            console.warn('[EGX30] API failed:', error);
+            return [];
+          }
+        },
+        staleTime: 6 * 3600 * 1000, // 6 hours
         refetchOnWindowFocus: false,
       },
     ]
@@ -369,6 +478,12 @@ export function useGlobalSignals() {
     unemploymentResult,
     gdpResult,
     wheatPriceResult,
+    riceResult,
+    cookingOilResult,
+    beefResult,
+    chickenFeedResult,
+    animalFeedResult,
+    egx30Result,
   ] = results;
 
   const ffpi = ffpiResult.data || [];
@@ -384,6 +499,12 @@ export function useGlobalSignals() {
   const unemployment = unemploymentResult.data || [];
   const gdp = gdpResult.data || [];
   const wheatPrice = wheatPriceResult.data || [];
+  const rice = riceResult.data || [];
+  const cookingOil = cookingOilResult.data || [];
+  const beef = beefResult.data || [];
+  const chickenFeed = chickenFeedResult.data || [];
+  const animalFeed = animalFeedResult.data || [];
+  const egx30 = egx30Result.data || [];
 
   // Enhanced debug logging
   console.log('[DEBUG] API Results Status:', {
@@ -422,6 +543,12 @@ export function useGlobalSignals() {
     unemployment,
     gdp,
     wheatPrice,
+    rice,
+    cookingOil,
+    beef,
+    chickenFeed,
+    animalFeed,
+    egx30,
     isLoading: results.some(r => r.isLoading),
     isError: results.some(r => r.isError),
   };

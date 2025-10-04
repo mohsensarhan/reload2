@@ -100,3 +100,11 @@ export const mockEgyptGDP_10Y = lastNYears(10).map((yy, i) => ({
   value: Number(clamp(4.2 - i * 0.2 + Math.sin(i * 0.9) * 0.8, 2.0, 5.5).toFixed(1)) // % GDP growth
 }));
 export const mockWheatPrice_24M = synthMonthly(24, 265.0, -0.30, 8.5); // USD/ton wheat price
+
+// NEW INDICATORS - Phase 4 (Commodities & EGX30)
+export const mockRicePrice_24M = synthMonthly(24, 485.0, 0.20, 12.5); // USD/ton white rice
+export const mockCookingOilPrice_24M = synthMonthly(24, 1250.0, -0.35, 45.0); // USD/ton cooking oil
+export const mockBeefPrice_24M = synthMonthly(24, 4850.0, 0.25, 120.0); // USD/ton beef
+export const mockChickenFeedPrice_24M = synthMonthly(24, 385.0, 0.18, 15.0); // USD/ton chicken feed
+export const mockAnimalFeedPrice_24M = synthMonthly(24, 295.0, 0.12, 10.5); // USD/ton animal feed
+export const mockEGX30_24M = synthMonthly(24, 28500.0, 15.0, 850.0); // EGX30 index points
