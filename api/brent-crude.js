@@ -34,8 +34,26 @@ export default async function handler() {
       })
       .filter(Boolean);
     
+    // Calculate YoY for each point
+    const pointsWithYoY = points.map((point, index) => {
+      // Find value from 365 days ago
+      const yearAgoIndex = points.findIndex(p => {
+        const currentDate = new Date(point.date);
+        const pDate = new Date(p.date);
+        const daysDiff = Math.abs((currentDate - pDate) / (1000 * 60 * 60 * 24));
+        return daysDiff >= 360 && daysDiff <= 370; // ~1 year ago (±5 days)
+      });
+      
+      if (yearAgoIndex !== -1 && points[yearAgoIndex].value) {
+        const yoyChange = ((point.value - points[yearAgoIndex].value) / points[yearAgoIndex].value) * 100;
+        return { ...point, yoyChange: Number(yoyChange.toFixed(2)) };
+      }
+      
+      return point;
+    });
+    
     // Get last 24 months of data
-    const last24Months = points.slice(-730); // ~2 years of daily data
+    const last24Months = pointsWithYoY.slice(-730); // ~2 years of daily data
     
     return json({
       source: 'FRED',

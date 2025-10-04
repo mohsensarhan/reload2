@@ -1,8 +1,8 @@
 export const config = { runtime: 'edge' };
 import { json, fail } from './_utils.js';
 
-// Yahoo Finance API for EGX30 (^CASE30)
-const YAHOO_EGX30_URL = 'https://query1.finance.yahoo.com/v8/finance/chart/%5ECASE30?interval=1d&range=2y';
+// Yahoo Finance for EGX30 Index
+const YAHOO_EGX30_URL = 'https://query1.finance.yahoo.com/v8/finance/chart/EGX30.CA?interval=1mo&range=2y';
 
 export default async function handler() {
   try {
@@ -14,44 +14,51 @@ export default async function handler() {
     });
     
     if (!response.ok) {
-      return json({ source: 'fallback', unit: 'points', frequency: 'daily', points: [] });
+      return fail(response.status, `Yahoo Finance ${response.status}`);
     }
     
     const data = await response.json();
+    const result = data?.chart?.result?.[0];
     
-    if (!data?.chart?.result?.[0]) {
-      return json({ source: 'fallback', unit: 'points', frequency: 'daily', points: [] });
+    if (!result || !result.timestamp || !result.indicators?.quote?.[0]?.close) {
+      return fail(500, 'Invalid Yahoo Finance response');
     }
     
-    const result = data.chart.result[0];
-    const timestamps = result.timestamp || [];
-    const closes = result.indicators?.quote?.[0]?.close || [];
+    const timestamps = result.timestamp;
+    const closes = result.indicators.quote[0].close;
     
-    // Convert to monthly data
-    const monthlyData = {};
-    timestamps.forEach((ts, i) => {
-      if (closes[i] !== null && !isNaN(closes[i])) {
+    const points = timestamps
+      .map((ts, i) => {
         const date = new Date(ts * 1000);
-        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-        if (!monthlyData[monthKey]) monthlyData[monthKey] = [];
-        monthlyData[monthKey].push(closes[i]);
-      }
-    });
+        const monthDate = date.toISOString().substring(0, 7);
+        const value = closes[i];
+        if (!value) return null;
+        return { date: monthDate, value: Number(value.toFixed(2)) };
+      })
+      .filter(Boolean);
     
-    const monthlyPoints = Object.keys(monthlyData)
-      .sort()
-      .map(date => ({
-        date,
-        value: Number((monthlyData[date].reduce((a, b) => a + b, 0) / monthlyData[date].length).toFixed(2))
-      }));
+    // Calculate YoY
+    const pointsWithYoY = points.map((point, index) => {
+      const yearAgoDate = new Date(point.date);
+      yearAgoDate.setFullYear(yearAgoDate.getFullYear() - 1);
+      const yearAgoKey = yearAgoDate.toISOString().substring(0, 7);
+      
+      const yearAgoPoint = points.find(p => p.date === yearAgoKey);
+      if (yearAgoPoint && yearAgoPoint.value) {
+        const yoyChange = ((point.value - yearAgoPoint.value) / yearAgoPoint.value) * 100;
+        return { ...point, yoyChange: Number(yoyChange.toFixed(2)) };
+      }
+      
+      return point;
+    });
     
     return json({
       source: 'Yahoo Finance',
       unit: 'points',
       frequency: 'monthly',
-      points: monthlyPoints.slice(-24)
+      points: pointsWithYoY
     });
   } catch (error) {
-    return json({ source: 'fallback', unit: 'points', frequency: 'monthly', points: [] });
+    return fail(500, error.message);
   }
 }

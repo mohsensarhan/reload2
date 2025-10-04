@@ -2,7 +2,7 @@ export const config = { runtime: 'edge' };
 import { json, fail } from './_utils.js';
 
 // FRED API for Corn (primary animal feed)
-const FRED_CORN_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PMAIZUSDM&cosd=2022-01-01';
+const FRED_CORN_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PMAIZMTUSDM';
 
 export default async function handler() {
   try {
@@ -44,11 +44,26 @@ export default async function handler() {
         value: Number((monthlyData[date].reduce((a, b) => a + b, 0) / monthlyData[date].length).toFixed(2))
       }));
     
+    // Calculate YoY
+    const pointsWithYoY = monthlyPoints.map((point, index) => {
+      const yearAgoDate = new Date(point.date);
+      yearAgoDate.setFullYear(yearAgoDate.getFullYear() - 1);
+      const yearAgoKey = yearAgoDate.toISOString().substring(0, 7);
+      
+      const yearAgoPoint = monthlyPoints.find(p => p.date === yearAgoKey);
+      if (yearAgoPoint && yearAgoPoint.value) {
+        const yoyChange = ((point.value - yearAgoPoint.value) / yearAgoPoint.value) * 100;
+        return { ...point, yoyChange: Number(yoyChange.toFixed(2)) };
+      }
+      
+      return point;
+    });
+    
     return json({
       source: 'FRED',
       unit: 'USD/MT',
       frequency: 'monthly',
-      points: monthlyPoints.slice(-24)
+      points: pointsWithYoY.slice(-24)
     });
   } catch (error) {
     return json({ source: 'fallback', unit: 'USD/MT', frequency: 'monthly', points: [] });

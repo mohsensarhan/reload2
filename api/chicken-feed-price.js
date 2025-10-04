@@ -1,12 +1,12 @@
 export const config = { runtime: 'edge' };
 import { json, fail } from './_utils.js';
 
-// FRED API for Soybean Meal (primary chicken feed ingredient)
-const FRED_SOYMEAL_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PSOYBUSDM&cosd=2022-01-01';
+// FRED API for Soybean Meal (Chicken Feed) Prices
+const FRED_SOYBEAN_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PSOYBUSDM';
 
 export default async function handler() {
   try {
-    const response = await fetch(FRED_SOYMEAL_URL, {
+    const response = await fetch(FRED_SOYBEAN_URL, {
       headers: { 
         'User-Agent': 'EFB-Dashboard/1.0',
         'Accept': 'text/csv'
@@ -14,7 +14,7 @@ export default async function handler() {
     });
     
     if (!response.ok) {
-      return json({ source: 'fallback', unit: 'USD/MT', frequency: 'monthly', points: [] });
+      return fail(response.status, `FRED Chicken Feed ${response.status}`);
     }
     
     const csvText = await response.text();
@@ -44,13 +44,28 @@ export default async function handler() {
         value: Number((monthlyData[date].reduce((a, b) => a + b, 0) / monthlyData[date].length).toFixed(2))
       }));
     
+    // Calculate YoY
+    const pointsWithYoY = monthlyPoints.map((point, index) => {
+      const yearAgoDate = new Date(point.date);
+      yearAgoDate.setFullYear(yearAgoDate.getFullYear() - 1);
+      const yearAgoKey = yearAgoDate.toISOString().substring(0, 7);
+      
+      const yearAgoPoint = monthlyPoints.find(p => p.date === yearAgoKey);
+      if (yearAgoPoint && yearAgoPoint.value) {
+        const yoyChange = ((point.value - yearAgoPoint.value) / yearAgoPoint.value) * 100;
+        return { ...point, yoyChange: Number(yoyChange.toFixed(2)) };
+      }
+      
+      return point;
+    });
+    
     return json({
       source: 'FRED',
       unit: 'USD/MT',
       frequency: 'monthly',
-      points: monthlyPoints.slice(-24)
+      points: pointsWithYoY.slice(-24)
     });
   } catch (error) {
-    return json({ source: 'fallback', unit: 'USD/MT', frequency: 'monthly', points: [] });
+    return fail(500, error.message);
   }
 }

@@ -1,23 +1,47 @@
 export const config = { runtime: 'edge' };
 import { json, fail } from './_utils.js';
 
-// IMF CPI data for Egypt
-const IMF_CSV = 'https://www.imf.org/external/datamapper/api/PCPIPCH@WEO/EGY';
+// FRED CPI data for Egypt
+const FRED_CSV = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=EGYPCPIPCHPT';
 
 export default async function handler() {
   try {
-    const r = await fetch(IMF_CSV, { headers: { accept: 'application/json' } });
-    if (!r.ok) return fail(r.status, `IMF CPI ${r.status}`);
-    const body = await r.json();
+    const r = await fetch(FRED_CSV, { 
+      headers: { 
+        'User-Agent': 'EFB-Dashboard/1.0',
+        'Accept': 'text/csv'
+      } 
+    });
     
-    // Extract series from IMF DataMapper response
-    const raw = body?.PCPIPCH?.EGY?.values || {};
-    const series = Object.entries(raw)
-      .map(([year, value]) => ({ date: year, value: Number(value) }))
-      .filter(p => p.date && Number.isFinite(p.value))
-      .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    if (!r.ok) return fail(r.status, `FRED CPI ${r.status}`);
+    
+    const csvText = await r.text();
+    const lines = csvText.trim().split('\n');
+    const dataLines = lines.slice(1); // Skip header
+    
+    const series = dataLines
+      .map(line => {
+        const [date, value] = line.split(',');
+        const numValue = parseFloat(value);
+        if (!date || !value || value === '.' || isNaN(numValue)) return null;
+        // Extract year from date (YYYY-MM-DD format)
+        const year = date.substring(0, 4);
+        return { date: year, value: numValue };
+      })
+      .filter(Boolean);
+    
+    // Calculate YoY (this is already a YoY indicator, but we can add MoM if needed)
+    // For CPI inflation, the value itself is already YoY, so we'll just pass it through
+    const seriesWithYoY = series.map((point, index) => {
+      if (index > 0) {
+        const prevValue = series[index - 1].value;
+        const yoyChange = point.value - prevValue; // Change in inflation rate
+        return { ...point, yoyChange: Number(yoyChange.toFixed(2)) };
+      }
+      return point;
+    });
 
-    return json({ source: 'IMF', unit: '% change', frequency: 'annual', series });
+    return json({ source: 'FRED', unit: '% change', frequency: 'annual', series: seriesWithYoY });
   } catch (e) {
     return fail(500, e.message);
   }
