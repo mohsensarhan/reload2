@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Supabase Data Points Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #fafafa; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 10px 0; }
+        .data-item { padding: 8px; background: white; border: 1px solid #ccc; border-radius: 3px; font-size: 12px; }
+        .data-item strong { color: #333; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .realtime-indicator { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+        .realtime-active { background: #28a745; animation: pulse 1s infinite; }
+        .realtime-inactive { background: #dc3545; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        button { padding: 10px 15px; margin: 5px; border: none; border-radius: 4px; background: #007bff; color: white; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .test-results { margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 5px; }
+        .log-entry { padding: 5px; margin: 2px 0; font-family: monospace; font-size: 12px; border-left: 3px solid #007bff; background: white; }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Direct Supabase Data Points Verification</h1>
+        <p><strong>URL:</strong> https://oktiojqphavkqeirbbul.supabase.co</p>
+        
+        <div id="connection-status" class="status">Connecting to Supabase...</div>
+        
+        <div class="section">
+            <h2>🔗 Connection Test</h2>
+            <button onclick="testConnection()">Test Connection</button>
+            <button onclick="fetchAllData()">Fetch All Data Points</button>
+            <button onclick="testRealtime()">Test Real-time Subscription</button>
+            <button onclick="performTestUpdate()">Perform Test Update</button>
+            <button onclick="clearLogs()">Clear Logs</button>
+        </div>
+
+        <div class="section">
+            <h2>📊 Core Metrics (9 data points)</h2>
+            <div id="core-metrics" class="data-grid">Loading...</div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Scenario Factors (11 data points)</h2>
+            <div id="scenario-factors" class="data-grid">Loading...</div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Chart Data Points (7 data points)</h2>
+            <div id="chart-data" class="data-grid">Loading...</div>
+        </div>
+
+        <div class="section">
+            <h2>🌍 Global Indicators (6 data points)</h2>
+            <div id="global-indicators" class="data-grid">Loading...</div>
+        </div>
+
+        <div class="section">
+            <h2>👥 Users & Roles</h2>
+            <div id="users-list">Loading...</div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Recent Audit Logs</h2>
+            <div id="audit-logs">Loading...</div>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Test Results & Logs</h2>
+            <div id="test-logs" class="test-results">Test logs will appear here...</div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase configuration
+        const supabaseUrl = 'https://oktiojqphavkqeirbbul.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rdGlvanFwaGF2a3FlaXJiYnVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyMjE3OTksImV4cCI6MjA3NDc5Nzc5OX0.3GUfIRtpx5yMKOxAte25IG3O5FlmYxjG21SEjPMFggc';
+        const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rdGlvanFwaGF2a3FlaXJiYnVsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTIyMTc5OSwiZXhwIjoyMDc0Nzk3Nzk5fQ.poQL_q2pDavh7unnpAYpFGV4qJg2UCOWYxkwqx1qJZU';
+
+        let supabase;
+        let supabaseAdmin;
+        let realtimeSubscription = null;
+        let updateCount = 0;
+
+        function log(message, type = 'info') {
+            const logsContainer = document.getElementById('test-logs');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.style.borderLeftColor = type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#007bff';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logsContainer.appendChild(logEntry);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        function updateStatus(message, type = 'warning') {
+            const statusDiv = document.getElementById('connection-status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        // Initialize Supabase clients
+        function initializeSupabase() {
+            try {
+                supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+                supabaseAdmin = supabase.createClient(supabaseUrl, supabaseServiceKey);
+                log('Supabase clients initialized successfully', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                updateStatus('Failed to initialize Supabase', 'error');
+                return false;
+            }
+        }
+
+        // Test basic connection
+        async function testConnection() {
+            log('Testing Supabase connection...');
+            updateStatus('Testing connection...', 'warning');
+
+            try {
+                // Test anon key connection
+                const { data, error } = await supabase
+                    .from('executive_metrics')
+                    .select('*')
+                    .limit(1);
+
+                if (error) {
+                    log(`Connection test failed: ${error.message}`, 'error');
+                    updateStatus('Connection failed', 'error');
+                } else {
+                    log(`✅ Connection successful! Retrieved ${data?.length || 0} records`, 'success');
+                    updateStatus('Connected successfully', 'success');
+                }
+            } catch (error) {
+                log(`Connection error: ${error.message}`, 'error');
+                updateStatus('Connection error', 'error');
+            }
+        }
+
+        // Fetch all data points
+        async function fetchAllData() {
+            log('Fetching all data points from Supabase...');
+            updateStatus('Fetching data...', 'warning');
+
+            try {
+                // Fetch latest executive metrics
+                const { data: metrics, error: metricsError } = await supabase
+                    .from('executive_metrics')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .single();
+
+                if (metricsError) {
+                    log(`Error fetching metrics: ${metricsError.message}`, 'error');
+                    return;
+                }
+
+                log('✅ Executive metrics retrieved successfully', 'success');
+
+                // Display Core Metrics
+                displayCoreMetrics(metrics);
+
+                // Display Scenario Factors
+                displayScenarioFactors(metrics);
+
+                // Display Chart Data
+                displayChartData(metrics);
+
+                // Display Global Indicators
+                displayGlobalIndicators(metrics);
+
+                // Fetch users
+                await fetchUsers();
+
+                // Fetch audit logs
+                await fetchAuditLogs();
+
+                log('✅ All data points displayed successfully', 'success');
+                updateStatus('Data loaded successfully', 'success');
+
+            } catch (error) {
+                log(`Error fetching data: ${error.message}`, 'error');
+                updateStatus('Data fetch error', 'error');
+            }
+        }
+
+        function displayCoreMetrics(metrics) {
+            const container = document.getElementById('core-metrics');
+            container.innerHTML = '';
+
+            const coreMetrics = [
+                { key: 'meals_delivered', label: 'Meals Delivered', format: 'number' },
+                { key: 'people_served', label: 'People Served', format: 'number' },
+                { key: 'cost_per_meal', label: 'Cost Per Meal (EGP)', format: 'currency' },
+                { key: 'program_efficiency', label: 'Program Efficiency (%)', format: 'percentage' },
+                { key: 'revenue', label: 'Revenue (EGP)', format: 'currency' },
+                { key: 'expenses', label: 'Expenses (EGP)', format: 'currency' },
+                { key: 'reserves', label: 'Reserves (EGP)', format: 'currency' },
+                { key: 'cash_position', label: 'Cash Position (EGP)', format: 'currency' },
+                { key: 'coverage_governorates', label: 'Coverage (Governorates)', format: 'number' }
+            ];
+
+            coreMetrics.forEach(({ key, label, format }) => {
+                const value = metrics[key] || 0;
+                const formattedValue = formatValue(value, format);
+                
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                item.innerHTML = `
+                    <strong>${label}:</strong><br>
+                    <span style="font-size: 14px; color: #007bff;">${formattedValue}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function displayScenarioFactors(metrics) {
+            const container = document.getElementById('scenario-factors');
+            container.innerHTML = '';
+
+            if (!metrics.scenario_factors) {
+                container.innerHTML = '<div class="data-item">No scenario factors found</div>';
+                return;
+            }
+
+            const factors = typeof metrics.scenario_factors === 'string' 
+                ? JSON.parse(metrics.scenario_factors) 
+                : metrics.scenario_factors;
+
+            const scenarioFactorKeys = [
+                'economicGrowth', 'inflationRate', 'donorSentiment', 'operationalEfficiency',
+                'foodPrices', 'unemploymentRate', 'corporateCSR', 'governmentSupport',
+                'exchangeRateEGP', 'logisticsCostIndex', 'regionalShock'
+            ];
+
+            scenarioFactorKeys.forEach(key => {
+                const value = factors[key] || factors[key.replace(/([A-Z])/g, '_$1').toLowerCase()] || 0;
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                item.innerHTML = `
+                    <strong>${key.replace(/([A-Z])/g, ' $1')}:</strong><br>
+                    <span style="font-size: 14px; color: #28a745;">${value}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function displayChartData(metrics) {
+            const container = document.getElementById('chart-data');
+            container.innerHTML = '';
+
+            const chartKeys = [
+                'revenueChange', 'demandChange', 'costChange', 'efficiencyChange',
+                'reserveChange', 'cashChange', 'mealsChange'
+            ];
+
+            chartKeys.forEach(key => {
+                const value = metrics[key] || 0;
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                item.innerHTML = `
+                    <strong>${key.replace(/([A-Z])/g, ' $1')}:</strong><br>
+                    <span style="font-size: 14px; color: #ffc107;">${value > 0 ? '+' : ''}${value}%</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function displayGlobalIndicators(metrics) {
+            const container = document.getElementById('global-indicators');
+            container.innerHTML = '';
+
+            if (!metrics.globalIndicators) {
+                container.innerHTML = '<div class="data-item">No global indicators found</div>';
+                return;
+            }
+
+            const indicators = typeof metrics.globalIndicators === 'string'
+                ? JSON.parse(metrics.globalIndicators)
+                : metrics.globalIndicators;
+
+            const indicatorKeys = [
+                'egyptInflation', 'egyptCurrency', 'egyptFoodInsecurity',
+                'globalInflation', 'globalFoodPrices', 'emergingMarketRisk'
+            ];
+
+            indicatorKeys.forEach(key => {
+                const value = indicators[key] || 0;
+                const formattedValue = key.includes('Inflation') || key.includes('Insecurity') ? `${value}%` : value;
+                
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                item.innerHTML = `
+                    <strong>${key.replace(/([A-Z])/g, ' ')}:</strong><br>
+                    <span style="font-size: 14px; color: #dc3545;">${formattedValue}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function formatValue(value, format) {
+            if (format === 'currency') {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'EGP',
+                    minimumFractionDigits: 0
+                }).format(value);
+            } else if (format === 'percentage') {
+                return `${value}%`;
+            } else if (format === 'number') {
+                return new Intl.NumberFormat().format(value);
+            }
+            return value;
+        }
+
+        async function fetchUsers() {
+            try {
+                const { data: users, error } = await supabase
+                    .from('users')
+                    .select('id, email, role, created_at')
+                    .limit(10);
+
+                const container = document.getElementById('users-list');
+                
+                if (error) {
+                    container.innerHTML = '<div class="data-item">Error fetching users</div>';
+                    log(`Error fetching users: ${error.message}`, 'error');
+                    return;
+                }
+
+                container.innerHTML = '';
+                users.forEach(user => {
+                    const item = document.createElement('div');
+                    item.className = 'data-item';
+                    item.innerHTML = `
+                        <strong>${user.email}</strong><br>
+                        <span style="color: ${user.role === 'admin' ? '#dc3545' : user.role === 'editor' ? '#007bff' : '#6c757d'};">
+                            Role: ${user.role}
+                        </span><br>
+                        <small>Created: ${new Date(user.created_at).toLocaleDateString()}</small>
+                    `;
+                    container.appendChild(item);
+                });
+
+                log(`✅ Retrieved ${users.length} users`, 'success');
+            } catch (error) {
+                log(`Error fetching users: ${error.message}`, 'error');
+            }
+        }
+
+        async function fetchAuditLogs() {
+            try {
+                const { data: logs, error } = await supabase
+                    .from('audit_logs')
+                    .select('*')
+                    .limit(5)
+                    .order('created_at', { ascending: false });
+
+                const container = document.getElementById('audit-logs');
+                
+                if (error) {
+                    container.innerHTML = '<div class="data-item">Error fetching audit logs</div>';
+                    log(`Error fetching audit logs: ${error.message}`, 'error');
+                    return;
+                }
+
+                container.innerHTML = '';
+                logs.forEach(log => {
+                    const item = document.createElement('div');
+                    item.className = 'data-item';
+                    item.innerHTML = `
+                        <strong>${log.action.toUpperCase()}</strong> on ${log.table_name}<br>
+                        <small>By: ${log.user_id} | ${new Date(log.created_at).toLocaleString()}</small>
+                    `;
+                    container.appendChild(item);
+                });
+
+                log(`✅ Retrieved ${logs.length} audit logs`, 'success');
+            } catch (error) {
+                log(`Error fetching audit logs: ${error.message}`, 'error');
+            }
+        }
+
+        // Real-time testing
+        async function testRealtime() {
+            log('Setting up real-time subscription...');
+            
+            if (realtimeSubscription) {
+                realtimeSubscription.unsubscribe();
+                log('Unsubscribed from previous subscription');
+            }
+
+            try {
+                realtimeSubscription = supabase
+                    .channel('realtime-test')
+                    .on('postgres_changes', {
+                        event: '*',
+                        schema: 'public',
+                        table: 'executive_metrics'
+                    }, (payload) => {
+                        log(`📡 Real-time update received! Event: ${payload.eventType}`, 'success');
+                        log(`Data: ${JSON.stringify(payload.new || payload.old)}`);
+                        updateCount++;
+                        
+                        // Refresh display
+                        fetchAllData();
+                    })
+                    .subscribe();
+
+                log('✅ Real-time subscription established', 'success');
+                updateStatus('Real-time active', 'success');
+                
+                // Update indicator
+                const indicator = document.querySelector('.realtime-indicator') || document.createElement('span');
+                indicator.className = 'realtime-indicator realtime-active';
+                document.querySelector('h1').appendChild(indicator);
+
+            } catch (error) {
+                log(`Real-time setup error: ${error.message}`, 'error');
+                updateStatus('Real-time failed', 'error');
+            }
+        }
+
+        // Perform test update
+        async function performTestUpdate() {
+            log('Performing test update...');
+            
+            try {
+                // Get current metrics
+                const { data: currentMetrics, error: fetchError } = await supabase
+                    .from('executive_metrics')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .single();
+
+                if (fetchError) {
+                    log(`Error fetching current metrics: ${fetchError.message}`, 'error');
+                    return;
+                }
+
+                // Update people_served by 1
+                const updatedMetrics = {
+                    ...currentMetrics,
+                    people_served: (currentMetrics.people_served || 0) + 1,
+                    updated_at: new Date().toISOString()
+                };
+
+                const { error: updateError } = await supabase
+                    .from('executive_metrics')
+                    .update(updatedMetrics)
+                    .eq('id', currentMetrics.id);
+
+                if (updateError) {
+                    log(`Update error: ${updateError.message}`, 'error');
+                } else {
+                    log('✅ Test update successful - people_served incremented by 1', 'success');
+                    log('Waiting for real-time notification...');
+                }
+
+            } catch (error) {
+                log(`Test update error: ${error.message}`, 'error');
+            }
+        }
+
+        function clearLogs() {
+            document.getElementById('test-logs').innerHTML = 'Test logs cleared...';
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            if (initializeSupabase()) {
+                testConnection();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -54,12 +54,12 @@ export default async function handler() {
 
     // Cache for 6 hours since CBE updates monthly
     return ok(points, 6 * 3600);
-  } catch (e: any) {
+  } catch (e) {
     return err(500, `CBE inflation error: ${String(e)}`);
   }
 }
 
-function ok(d: unknown, ttl = 3600) {
+function ok(d, ttl = 3600) {
   return new Response(JSON.stringify(d), {
     status: 200,
     headers: {
@@ -69,7 +69,7 @@ function ok(d: unknown, ttl = 3600) {
   });
 }
 
-function err(s: number, m: string) {
+function err(s, m) {
   return new Response(JSON.stringify({ error: m }), {
     status: s,
     headers: { 'content-type': 'application/json' }

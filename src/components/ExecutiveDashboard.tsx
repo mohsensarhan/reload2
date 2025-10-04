@@ -60,15 +60,16 @@ interface DashboardMetrics {
   cashPosition: number;
 }
 
+// Base metrics removed - always use live data from Supabase
 const baseMetrics: DashboardMetrics = {
-  mealsDelivered: 367490721,
-  peopleServed: 4960000,
-  costPerMeal: 6.36,
-  programEfficiency: 83,
-  revenue: 2200000000,
-  expenses: 2316000000,
-  reserves: 731200000,
-  cashPosition: 459800000,
+  mealsDelivered: 0,
+  peopleServed: 0,
+  costPerMeal: 0,
+  programEfficiency: 0,
+  revenue: 0,
+  expenses: 0,
+  reserves: 0,
+  cashPosition: 0,
 };
 
 const ExecutiveDashboard = memo(() => {
@@ -76,50 +77,7 @@ const ExecutiveDashboard = memo(() => {
   const [liveMetrics, setLiveMetrics] = useState<DashboardMetrics>(baseMetrics);
   const [isLoadingMetrics, setIsLoadingMetrics] = useState(true);
 
-  // Fetch live metrics from database
-  React.useEffect(() => {
-    const fetchMetrics = async () => {
-      try {
-        const metrics = await dataService.getExecutiveMetrics();
-        if (metrics) {
-          setLiveMetrics({
-            mealsDelivered: metrics.meals_delivered,
-            peopleServed: metrics.people_served,
-            costPerMeal: metrics.cost_per_meal,
-            programEfficiency: metrics.program_efficiency,
-            revenue: metrics.revenue,
-            expenses: metrics.expenses,
-            reserves: metrics.reserves,
-            cashPosition: metrics.cash_position,
-          });
-        }
-      } catch (error) {
-        console.error('Error fetching metrics:', error);
-      } finally {
-        setIsLoadingMetrics(false);
-      }
-    };
-
-    fetchMetrics();
-
-    // Subscribe to real-time updates
-    const unsubscribe = dataService.subscribeToExecutiveMetrics((metrics) => {
-      setLiveMetrics({
-        mealsDelivered: metrics.meals_delivered,
-        peopleServed: metrics.people_served,
-        costPerMeal: metrics.cost_per_meal,
-        programEfficiency: metrics.program_efficiency,
-        revenue: metrics.revenue,
-        expenses: metrics.expenses,
-        reserves: metrics.reserves,
-        cashPosition: metrics.cash_position,
-      });
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  // Removed duplicate data fetching - consolidated below
 
   // Get initial section from URL or default to 'executive'
   const getInitialSection = () => {
@@ -156,7 +114,7 @@ const ExecutiveDashboard = memo(() => {
     window.history.replaceState(null, '', `#${sectionId}`);
   };
 
-  // Load metrics from Supabase
+  // Load metrics from Supabase - SINGLE SOURCE OF TRUTH
   React.useEffect(() => {
     const loadMetrics = async () => {
       try {
@@ -164,7 +122,20 @@ const ExecutiveDashboard = memo(() => {
         const metricsData = await dataService.getExecutiveMetrics();
         if (metricsData) {
           console.log('✅ Dashboard: Initial metrics loaded:', metricsData);
+          
+          // Update both state variables to keep them in sync
           setMetrics(metricsData);
+          setLiveMetrics({
+            mealsDelivered: metricsData.meals_delivered,
+            peopleServed: metricsData.people_served,
+            costPerMeal: metricsData.cost_per_meal,
+            programEfficiency: metricsData.program_efficiency,
+            revenue: metricsData.revenue,
+            expenses: metricsData.expenses,
+            reserves: metricsData.reserves,
+            cashPosition: metricsData.cash_position,
+          });
+          
           // Set scenario factors from stored data
           if (metricsData.scenario_factors) {
             setScenarioFactors(prev => ({ ...prev, ...metricsData.scenario_factors }));
@@ -174,6 +145,7 @@ const ExecutiveDashboard = memo(() => {
         console.error('Error loading metrics:', error);
       } finally {
         setIsLoading(false);
+        setIsLoadingMetrics(false);
       }
     };
 
@@ -192,6 +164,19 @@ const ExecutiveDashboard = memo(() => {
         reserves: updatedMetrics.reserves,
         cash_position: updatedMetrics.cash_position,
         coverage_governorates: updatedMetrics.coverage_governorates
+      });
+      
+      // Update both state variables to keep them in sync
+      setMetrics(updatedMetrics);
+      setLiveMetrics({
+        mealsDelivered: updatedMetrics.meals_delivered,
+        peopleServed: updatedMetrics.people_served,
+        costPerMeal: updatedMetrics.cost_per_meal,
+        programEfficiency: updatedMetrics.program_efficiency,
+        revenue: updatedMetrics.revenue,
+        expenses: updatedMetrics.expenses,
+        reserves: updatedMetrics.reserves,
+        cashPosition: updatedMetrics.cash_position,
       });
       
       setMetrics(updatedMetrics);
@@ -797,7 +782,7 @@ const ExecutiveDashboard = memo(() => {
     peopleServed: calculatedMetrics?.peopleServed || metrics?.people_served || liveMetrics.peopleServed,
     mealsDelivered: calculatedMetrics?.mealsDelivered || metrics?.meals_delivered || liveMetrics.mealsDelivered,
     costPerMeal: calculatedMetrics?.costPerMeal || metrics?.cost_per_meal || liveMetrics.costPerMeal,
-    coverage: metrics?.coverage_governorates || 27
+    coverage: metrics?.coverage_governorates || 0
   };
 
 
