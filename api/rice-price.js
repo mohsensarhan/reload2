@@ -1,7 +1,7 @@
 export const config = { runtime: 'edge' };
 import { json, fail } from './_utils.js';
 
-// FRED API for Rice Prices
+// FRED API for Rice Prices (Thailand 5% broken)
 const FRED_RICE_URL = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=PRICENPQUSDM';
 
 export default async function handler() {
