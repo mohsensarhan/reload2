@@ -12,8 +12,10 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      staleTime: 0, // Always fetch fresh data
+      cacheTime: 0, // Don't cache data
       refetchOnWindowFocus: true,
+      refetchOnMount: true,
       retry: 1,
     },
   },
