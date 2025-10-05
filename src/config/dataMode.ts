@@ -21,7 +21,7 @@ export const DATA_SOURCE = {
   fx:        'live',  // NEW: USD/EGP via /api/fx
   diet:      'live',  // NEW: Cost of healthy diet via /api/diet-cost
   fies:      'live',  // NEW: Food insecurity (FIES) via /api/fies-egy
-  brent:     'live',  // NEW: Brent crude oil price
+  // brent:     'live',  // REMOVED: Not directly operational for food bank
   unemployment: 'live', // NEW: Egypt unemployment rate
   gdp:       'live',  // NEW: Egypt GDP growth
   wheatPrice: 'live', // NEW: Global wheat price

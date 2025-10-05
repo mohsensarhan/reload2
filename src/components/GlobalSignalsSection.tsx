@@ -65,24 +65,7 @@ export function GlobalSignalsSection() {
           spark={(s.ffpi as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
-        <MetricMicroCard
-          title="Brent Crude Oil"
-          value={Number((last(s.brent) as any)?.value) || 0}
-          format="number"
-          unit="USD/barrel"
-          description="Global oil benchmark affecting food transport costs and fertilizer prices."
-          dataStatus={getDataStatus('brent', s.isLoading, s.isError)}
-          dataSource="FRED"
-          delta={(() => {
-            const curr = last(s.brent) as any;
-            const prevVal = prev(s.brent) as any;
-            if (!curr || !prevVal) return undefined;
-            const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
-            return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
-          })()}
-          yoyChange={getYoY(s.brent)}
-          spark={(s.brent as any[]).map(p => ({ t: p.date, v: p.value }))}
-        />
+        {/* REMOVED: Brent Crude Oil - not directly operational for food bank */}
 
         <MetricMicroCard
           title="USD/EGP Exchange Rate"

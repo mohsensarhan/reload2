@@ -282,23 +282,24 @@ export function useGlobalSignals() {
         refetchOnWindowFocus: false,
       },
       // 10. Brent Crude Oil Price
-      {
-        queryKey: ['brent-crude'],
-        queryFn: async () => {
-          try {
-            if (DATA_SOURCE.brent === 'live') {
-              const result = await fetchBrentCrude();
-              return result.points || mockBrentCrude_24M;
-            }
-            return mockBrentCrude_24M;
-          } catch (error) {
-            console.warn('[Brent Crude] API failed, using mock data:', error);
-            return mockBrentCrude_24M;
-          }
-        },
-        staleTime: 24 * 3600 * 1000, // 24 hours
-        refetchOnWindowFocus: false,
-      },
+      // REMOVED: Brent Crude - not directly operational for food bank
+      // {
+      //   queryKey: ['brent-crude'],
+      //   queryFn: async () => {
+      //     try {
+      //       if (DATA_SOURCE.brent === 'live') {
+      //         const result = await fetchBrentCrude();
+      //         return result.points || mockBrentCrude_24M;
+      //       }
+      //       return mockBrentCrude_24M;
+      //     } catch (error) {
+      //       console.warn('[Brent Crude] API failed, using mock data:', error);
+      //       return mockBrentCrude_24M;
+      //     }
+      //   },
+      //   staleTime: 24 * 3600 * 1000, // 24 hours
+      //   refetchOnWindowFocus: false,
+      // },
       // 11. Egypt Unemployment Rate
       {
         queryKey: ['egypt-unemployment'],
@@ -492,7 +493,7 @@ export function useGlobalSignals() {
     dietResult,
     fiesResult,
     cbeFoodResult,
-    brentResult,
+    // brentResult, // REMOVED
     unemploymentResult,
     gdpResult,
     wheatPriceResult,
@@ -514,7 +515,7 @@ export function useGlobalSignals() {
   const fx = fxResult.data || [];
   const diet = dietResult.data || [];
   const fies = fiesResult.data || [];
-  const brent = brentResult.data || [];
+  // const brent = brentResult.data || []; // REMOVED
   const unemployment = unemploymentResult.data || [];
   const gdp = gdpResult.data || [];
   const wheatPrice = wheatPriceResult.data || [];
@@ -559,7 +560,7 @@ export function useGlobalSignals() {
     fx,
     diet,
     fies,
-    brent,
+    // brent, // REMOVED
     unemployment,
     gdp,
     wheatPrice,
