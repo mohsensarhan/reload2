@@ -1,0 +1,926 @@
+{
+  "config": {
+    "configFile": "/workspace/reload2/playwright.config.ts",
+    "rootDir": "/workspace/reload2/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 17
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/workspace/reload2/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 17
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/reload2/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/workspace/reload2/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 17
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/workspace/reload2/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/workspace/reload2/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 17
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/workspace/reload2/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.1",
+    "workers": 24,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:8081",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "admin-supabase-ui-sync.spec.ts",
+      "file": "admin-supabase-ui-sync.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Admin → Supabase → UI Perfect Sync",
+          "file": "admin-supabase-ui-sync.spec.ts",
+          "line": 26,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should sync admin changes to Supabase and UI in real-time",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 45713,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/workspace/reload2/tests/admin-supabase-ui-sync.spec.ts",
+                            "column": 16,
+                            "line": 105
+                          },
+                          "message": "Error: page.waitForSelector: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#email') to be visible\u001b[22m\n\n\n  103 |     console.log('🔐 Step 1: Logging into admin panel...');\n  104 |     await page.goto('/login');\n> 105 |     await page.waitForSelector('#email', { timeout: 30000 });\n      |                ^\n  106 |\n  107 |     await page.fill('#email', 'admin@example.com');\n  108 |     await page.fill('#password', adminPassword);\n    at /workspace/reload2/tests/admin-supabase-ui-sync.spec.ts:105:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 Test metrics generated: {\n  people_served: \u001b[33m5913461\u001b[39m,\n  meals_delivered: \u001b[33m379218188\u001b[39m,\n  cost_per_meal: \u001b[33m6.751961858958269\u001b[39m,\n  program_efficiency: \u001b[33m76.7315510959326\u001b[39m,\n  revenue: \u001b[33m2691734070\u001b[39m,\n  expenses: \u001b[33m2759645156\u001b[39m,\n  reserves: \u001b[33m1128140071\u001b[39m,\n  cash_position: \u001b[33m655060365\u001b[39m,\n  coverage_governorates: \u001b[33m26\u001b[39m,\n  scenario_factors: {\n    economicGrowth: \u001b[33m3.040208612399784\u001b[39m,\n    inflationRate: \u001b[33m32.75123639017207\u001b[39m,\n    donorSentiment: \u001b[33m15.880284005189878\u001b[39m,\n    operationalEfficiency: \u001b[33m80.25170605283594\u001b[39m,\n    foodPrices: \u001b[33m124.64293121442262\u001b[39m,\n    unemploymentRate: \u001b[33m15.539458883125125\u001b[39m,\n    corporateCSR: \u001b[33m35.08786457674182\u001b[39m,\n    governmentSupport: \u001b[33m-22.311698506099\u001b[39m,\n    exchangeRateEGP: \u001b[33m50.3518804507493\u001b[39m,\n    logisticsCostIndex: \u001b[33m135.90320026739258\u001b[39m,\n    regionalShock: \u001b[33m-0.052046190855215\u001b[39m\n  },\n  chartData: {\n    revenueChange: \u001b[33m9.460523585683593\u001b[39m,\n    demandChange: \u001b[33m2.556989551491057\u001b[39m,\n    costChange: \u001b[33m6.412388195410834\u001b[39m,\n    efficiencyChange: \u001b[33m7.6035322620684695\u001b[39m,\n    reserveChange: \u001b[33m9.307152669895249\u001b[39m,\n    cashChange: \u001b[33m9.103102413643626\u001b[39m,\n    mealsChange: \u001b[33m-9.831874356521322\u001b[39m\n  },\n  globalIndicators: {\n    egyptInflation: \u001b[33m26.184468209206866\u001b[39m,\n    egyptCurrency: \u001b[33m48.386171817269556\u001b[39m,\n    egyptFoodInsecurity: \u001b[33m13.806788790241251\u001b[39m,\n    globalInflation: \u001b[33m7.155506785486148\u001b[39m,\n    globalFoodPrices: \u001b[33m22.997422009451505\u001b[39m,\n    emergingMarketRisk: \u001b[33m73.5182608552729\u001b[39m\n  }\n}\n"
+                        },
+                        {
+                          "text": "🔐 Step 1: Logging into admin panel...\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.660Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/admin-supabase-ui-sync-Adm-1394f-upabase-and-UI-in-real-time-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0706f03eba37de1186be-7dd731c9ec0a8ba326ea",
+              "file": "admin-supabase-ui-sync.spec.ts",
+              "line": 101,
+              "column": 3
+            },
+            {
+              "title": "should handle scenario factors and chart data sync",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 45609,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/workspace/reload2/tests/admin-supabase-ui-sync.spec.ts",
+                            "column": 16,
+                            "line": 236
+                          },
+                          "message": "Error: page.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#email')\u001b[22m\n\n\n  234 |     // Login to admin\n  235 |     await page.goto('/login');\n> 236 |     await page.fill('#email', 'admin@example.com');\n      |                ^\n  237 |     await page.fill('#password', adminPassword);\n  238 |     await page.click('button:has-text(\"Sign In\")');\n  239 |     await page.waitForSelector('#people_served');\n    at /workspace/reload2/tests/admin-supabase-ui-sync.spec.ts:236:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 Test metrics generated: {\n  people_served: \u001b[33m5589866\u001b[39m,\n  meals_delivered: \u001b[33m316218182\u001b[39m,\n  cost_per_meal: \u001b[33m6.199378508446918\u001b[39m,\n  program_efficiency: \u001b[33m77.07535782500612\u001b[39m,\n  revenue: \u001b[33m2952463260\u001b[39m,\n  expenses: \u001b[33m2261792370\u001b[39m,\n  reserves: \u001b[33m865010968\u001b[39m,\n  cash_position: \u001b[33m963045134\u001b[39m,\n  coverage_governorates: \u001b[33m26\u001b[39m,\n  scenario_factors: {\n    economicGrowth: \u001b[33m2.5789442185752627\u001b[39m,\n    inflationRate: \u001b[33m28.311371710392564\u001b[39m,\n    donorSentiment: \u001b[33m-36.35815928939172\u001b[39m,\n    operationalEfficiency: \u001b[33m121.70861157748617\u001b[39m,\n    foodPrices: \u001b[33m104.35010705951811\u001b[39m,\n    unemploymentRate: \u001b[33m13.74878841729462\u001b[39m,\n    corporateCSR: \u001b[33m59.985966243682086\u001b[39m,\n    governmentSupport: \u001b[33m41.20851974407826\u001b[39m,\n    exchangeRateEGP: \u001b[33m39.053030638562745\u001b[39m,\n    logisticsCostIndex: \u001b[33m144.1390364288244\u001b[39m,\n    regionalShock: \u001b[33m-2.539924747165358\u001b[39m\n  },\n  chartData: {\n    revenueChange: \u001b[33m5.898507414493018\u001b[39m,\n    demandChange: \u001b[33m-3.2569840113661375\u001b[39m,\n    costChange: \u001b[33m6.931262663262466\u001b[39m,\n    efficiencyChange: \u001b[33m4.801927092536914\u001b[39m,\n    reserveChange: \u001b[33m-6.122271228375591\u001b[39m,\n    cashChange: \u001b[33m-5.826798139659126\u001b[39m,\n    mealsChange: \u001b[33m7.343096371839124\u001b[39m\n  },\n  globalIndicators: {\n    egyptInflation: \u001b[33m32.212199464265694\u001b[39m,\n    egyptCurrency: \u001b[33m56.96364962084895\u001b[39m,\n    egyptFoodInsecurity: \u001b[33m18.723287298508254\u001b[39m,\n    globalInflation: \u001b[33m7.3547394699124276\u001b[39m,\n    globalFoodPrices: \u001b[33m33.46115808537547\u001b[39m,\n    emergingMarketRisk: \u001b[33m61.186892879395536\u001b[39m\n  }\n}\n"
+                        },
+                        {
+                          "text": "🧪 Testing scenario factors and chart data sync...\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.563Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/admin-supabase-ui-sync-Adm-152a4-factors-and-chart-data-sync-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0706f03eba37de1186be-db626679fc88993ab864",
+              "file": "admin-supabase-ui-sync.spec.ts",
+              "line": 231,
+              "column": 3
+            },
+            {
+              "title": "should maintain connection status and handle errors gracefully",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "timedOut",
+                      "duration": 44305,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/workspace/reload2/tests/admin-supabase-ui-sync.spec.ts",
+                            "column": 16,
+                            "line": 270
+                          },
+                          "message": "Error: page.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#email')\u001b[22m\n\n\n  268 |     // Login to admin\n  269 |     await page.goto('/login');\n> 270 |     await page.fill('#email', 'admin@example.com');\n      |                ^\n  271 |     await page.fill('#password', adminPassword);\n  272 |     await page.click('button:has-text(\"Sign In\")');\n  273 |     await page.waitForSelector('#people_served');\n    at /workspace/reload2/tests/admin-supabase-ui-sync.spec.ts:270:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 Test metrics generated: {\n  people_served: \u001b[33m5853987\u001b[39m,\n  meals_delivered: \u001b[33m391032029\u001b[39m,\n  cost_per_meal: \u001b[33m9.51581462055953\u001b[39m,\n  program_efficiency: \u001b[33m86.36790239417138\u001b[39m,\n  revenue: \u001b[33m2112655428\u001b[39m,\n  expenses: \u001b[33m2439992628\u001b[39m,\n  reserves: \u001b[33m1072520374\u001b[39m,\n  cash_position: \u001b[33m477141047\u001b[39m,\n  coverage_governorates: \u001b[33m26\u001b[39m,\n  scenario_factors: {\n    economicGrowth: \u001b[33m-4.3851239242963995\u001b[39m,\n    inflationRate: \u001b[33m24.869083136065985\u001b[39m,\n    donorSentiment: \u001b[33m15.661842839945379\u001b[39m,\n    operationalEfficiency: \u001b[33m109.0725434995863\u001b[39m,\n    foodPrices: \u001b[33m136.2991895232199\u001b[39m,\n    unemploymentRate: \u001b[33m11.756619628673956\u001b[39m,\n    corporateCSR: \u001b[33m52.0402588000112\u001b[39m,\n    governmentSupport: \u001b[33m-18.24085747122468\u001b[39m,\n    exchangeRateEGP: \u001b[33m46.02140748313699\u001b[39m,\n    logisticsCostIndex: \u001b[33m126.16450846338107\u001b[39m,\n    regionalShock: \u001b[33m39.36648276350712\u001b[39m\n  },\n  chartData: {\n    revenueChange: \u001b[33m6.549679514887735\u001b[39m,\n    demandChange: \u001b[33m8.90085882494596\u001b[39m,\n    costChange: \u001b[33m9.813279804352312\u001b[39m,\n    efficiencyChange: \u001b[33m1.0200965543053808\u001b[39m,\n    reserveChange: \u001b[33m-5.144094687805665\u001b[39m,\n    cashChange: \u001b[33m6.807230450531957\u001b[39m,\n    mealsChange: \u001b[33m-4.53830319519771\u001b[39m\n  },\n  globalIndicators: {\n    egyptInflation: \u001b[33m43.4882461878823\u001b[39m,\n    egyptCurrency: \u001b[33m45.13728358372289\u001b[39m,\n    egyptFoodInsecurity: \u001b[33m14.710527069947542\u001b[39m,\n    globalInflation: \u001b[33m4.258396886280902\u001b[39m,\n    globalFoodPrices: \u001b[33m32.749993013362754\u001b[39m,\n    emergingMarketRisk: \u001b[33m69.25652371191941\u001b[39m\n  }\n}\n"
+                        },
+                        {
+                          "text": "🔌 Testing connection status and error handling...\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.362Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/admin-supabase-ui-sync-Adm-abc00-nd-handle-errors-gracefully-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0706f03eba37de1186be-0417d8e443dc10329278",
+              "file": "admin-supabase-ui-sync.spec.ts",
+              "line": 265,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "dashboard-verification.spec.js",
+      "file": "dashboard-verification.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Dashboard Verification Suite",
+          "file": "dashboard-verification.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load dashboard without errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 32891,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:41.460Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-edf9a7fe48f50e29996c",
+              "file": "dashboard-verification.spec.js",
+              "line": 10,
+              "column": 3
+            },
+            {
+              "title": "should display all current indicators",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 28196,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:41.764Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-d7cf8ca074a16509235e",
+              "file": "dashboard-verification.spec.js",
+              "line": 23,
+              "column": 3
+            },
+            {
+              "title": "should display non-zero values",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "failed",
+                      "duration": 34700,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"195.72\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[39m\n\u001b[31m    Impact IntelligenceReal-time Analytics CenterLives2.0MMeals28.0MCost80Coverage3/27LIVE FY2024/25GLOBAL #3Report SectionsNavigate through impact analysisExecutive Dashboard✓High-level KPIs and organizational health overviewPeople Served4.96MMeals Delivered367.5MFinancial Analytics✓Revenue analysis, cost management & sustainability metricsRevenueEGP 2.20BProgram Ratio83%Operations Excellence✓Distribution efficiency, logistics & quality controlDistribution Rate94.7%Cost per PersonEGP 459Program Impact✓Protection, Prevention & Empowerment pillars analysisStunting Reduction86%School Feeding125KStakeholder Intelligence✓Brand performance, partnerships & digital engagementBrand Awareness84%NPS Score41Scenario Modeling✓Advanced econometric modeling and sensitivity analysisVariables8+Model R²84.7%Governance & Risk✓Board oversight, compliance & risk managementBoard Meetings12Audit Score96%Sustainability Impact✓Environmental footprint & sustainable development goalsSDG Targets12/17Carbon Footprint-15%Humanitarian Impact DashboardAdvanced analytics and real-time monitoring of Egypt's largest food security operationExecutive Story Flow:What we achieved→Why it matters→How we're growing→What's next1. What We AchievedStrategic Impact OverviewRecord-breaking humanitarian achievement: 4.96M lives impacted through 367.5M meals delivered across all of Egypt+43% CAGRLives Impacted2.0MpeopleUnique individuals reached nationwide+40% YoYMeals Delivered28.0MmealsTotal annual food assistance83% ratioCost Per MealEGP80.00All-inclusive program cost100% coverageCoverage27/27Governorates reached2. Why It MattersOperating in Crisis: Egypt's Economic RealityUnderstanding the challenging context: soaring food prices, currency pressure, and rising food insecurity driving unprecedented demandFAO Food Price Index126.3index+0.3%m/m+0.8%y/ySource: FAOBrent Crude Oil66.87USD/barrel-0.3%m/m-10.3%y/ySource: FREDUSD/EGP Exchange Rate0EGP per USDSource: Central BankEgypt EGX30 Index30.3Kpoints-2.3%m/m+5.6%y/ySource: Yahoo FinanceGlobal Wheat Price173.19USD/MT-12.0%m/m-15.6%y/ySource: FREDWhite Rice Price388.62USD/MT-2.0%m/m-35.8%y/ySource: FREDCooking Oil Price934.5USD/MT+3.5%m/m+11.5%y/ySource: FREDBeef Livestock Price298.26USD/MT+1.9%m/m+13.1%y/ySource: FREDChicken Feed Price383.52USD/MT-1.1%m/m-11.0%y/ySource: FREDAnimal Feed Price0USD/MTSource: FREDEgypt Unemployment0.0%Source: Our World in DataEgypt GDP Growth3.2%0.0%Δ'21'25Source: World BankEgypt CPI YoY12.0%-1.9%ΔSource: Central Bank of EgyptCBE Food Inflation-5.6%0.0%ΔSource: CBE Food PricesCost of Healthy Diet3.4int-$/day0.0%y/y'11'10Source: Our World in DataFood Insecurity (FIES)29.6%+0.3%Δ'11'10Source: Our World in DataRefugees in Egypt0peopleSource: UNHCR2.5. Online DonationsOnline Donations AnalyticsReal-time tracking of online donations, trends, and donor engagement patterns3. How We're Growing5-Year Growth Trajectory: From Regional Leader to Global ForceExceptional expansion trajectory achieving 43% CAGR despite economic headwinds - reaching global #3 rankingGrowth Trajectory AnalysisFive-year operational expansion+52% CAGR367.5MFY2024 TotalMeals Delivered (Annual)MealsLives Impacted (Cumulative)Lives201920202021202220232024202520260200.0M400.0M600.0M800.0MMeals Delivered (Annual)Projected GrowthHide ProjectionsLast updated: 4:49:44 PM+52.2%Meals CAGR2019-2024+42.3%Lives CAGRCumulative reach16.1MTotal ReachedSince 2019Strategic Growth InsightsAcceleration Factors• Digital transformation driving 51% online growth• Supply chain optimization reducing cost per meal• Strategic partnerships expanding reach• Government collaboration enhancing efficiencyFuture Targets• 500M meals by 2026 (35% increase)• 6M annual beneficiaries (21% growth)• Maintain sub-EGP 6.00 cost efficiency• Expand to 3 additional countriesFinancial FoundationFinancial Sustainability & Resource ManagementStrategic deficit of EGP 116M maintains full operations during crisis, covered by reserves built over previous yearsFinancial Health DashboardOperating Marginexcellent31.7%Reserve Adequacyexcellent7.0 monthsRevenueEGP 3.86B+3.4% YoYExpensesEGP 2.63B+18% YoYReservesEGP 1.53BLiquid assetsOrganizational Sustainability100%Program Efficiency77.27%Cash Coverage41.1%Risk LevelLowExecution ExcellenceHow We Deliver: Operational Excellence at ScaleWorld-class cost efficiency of EGP 6.36 per meal through 27/27 governorate coverage and optimized program mixGeographic Impact27/27Governorates5,000+PartnersCairo45.2M meals95% coverage2.2M peopleGiza38.7M meals92% coverage1.8M peopleAlexandria32.1M meals88% coverage1.5M peopleUpper Egypt89.3M meals85% coverage8.2M peopleDelta112.8M meals90% coverage12.1M peopleSinai & Red Sea12.4M meals78% coverage0.8M peopleProgram DistributionRegular Food Boxes45%165.4MSchool Feeding22%80.8MEmergency Relief18%66.1MNutrition Programs10%36.7MOther Programs5%18.4M14Meals per person5,479Daily reachMeasured OutcomesDietary Diversity ImprovementPositive25%Food Insecurity ReductionPositive7%QALYs GainedPositive10KlivesDALYs AvertedPositive15KyearsGlobal Recognition#3 Largest Food BankFirst Impact Evaluation in Egypt4. What's NextStrategic Roadmap & Executive ActionsData-driven priorities for scaling to 6M beneficiaries while addressing critical risks and innovation opportunitiesGrowth Opportunities• Scale to 6M beneficiaries by FY2026• Expand into 3 additional countries• Launch prevention programs in urban areas• Implement AI-driven supply chain optimizationRisk Mitigation• Diversify funding sources beyond 60%• Build 6-month operational reserves• Develop crisis response protocols• Strengthen government partnershipsInnovation Priorities• Deploy blockchain for transparency• Launch mobile nutrition education• Implement biometric beneficiary tracking• Develop predictive demand modelingComprehensive mission data for 367.5 million meals delivered across 27 governorates in FY2024/25····\u001b[39m\n\u001b[31m'11\"\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"195.72\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[39m\n\u001b[31m    Impact IntelligenceReal-time Analytics CenterLives2.0MMeals28.0MCost80Coverage3/27LIVE FY2024/25GLOBAL #3Report SectionsNavigate through impact analysisExecutive Dashboard✓High-level KPIs and organizational health overviewPeople Served4.96MMeals Delivered367.5MFinancial Analytics✓Revenue analysis, cost management & sustainability metricsRevenueEGP 2.20BProgram Ratio83%Operations Excellence✓Distribution efficiency, logistics & quality controlDistribution Rate94.7%Cost per PersonEGP 459Program Impact✓Protection, Prevention & Empowerment pillars analysisStunting Reduction86%School Feeding125KStakeholder Intelligence✓Brand performance, partnerships & digital engagementBrand Awareness84%NPS Score41Scenario Modeling✓Advanced econometric modeling and sensitivity analysisVariables8+Model R²84.7%Governance & Risk✓Board oversight, compliance & risk managementBoard Meetings12Audit Score96%Sustainability Impact✓Environmental footprint & sustainable development goalsSDG Targets12/17Carbon Footprint-15%Humanitarian Impact DashboardAdvanced analytics and real-time monitoring of Egypt's largest food security operationExecutive Story Flow:What we achieved→Why it matters→How we're growing→What's next1. What We AchievedStrategic Impact OverviewRecord-breaking humanitarian achievement: 4.96M lives impacted through 367.5M meals delivered across all of Egypt+43% CAGRLives Impacted2.0MpeopleUnique individuals reached nationwide+40% YoYMeals Delivered28.0MmealsTotal annual food assistance83% ratioCost Per MealEGP80.00All-inclusive program cost100% coverageCoverage27/27Governorates reached2. Why It MattersOperating in Crisis: Egypt's Economic RealityUnderstanding the challenging context: soaring food prices, currency pressure, and rising food insecurity driving unprecedented demandFAO Food Price Index126.3index+0.3%m/m+0.8%y/ySource: FAOBrent Crude Oil66.87USD/barrel-0.3%m/m-10.3%y/ySource: FREDUSD/EGP Exchange Rate0EGP per USDSource: Central BankEgypt EGX30 Index30.3Kpoints-2.3%m/m+5.6%y/ySource: Yahoo FinanceGlobal Wheat Price173.19USD/MT-12.0%m/m-15.6%y/ySource: FREDWhite Rice Price388.62USD/MT-2.0%m/m-35.8%y/ySource: FREDCooking Oil Price934.5USD/MT+3.5%m/m+11.5%y/ySource: FREDBeef Livestock Price298.26USD/MT+1.9%m/m+13.1%y/ySource: FREDChicken Feed Price383.52USD/MT-1.1%m/m-11.0%y/ySource: FREDAnimal Feed Price0USD/MTSource: FREDEgypt Unemployment0.0%Source: Our World in DataEgypt GDP Growth3.2%0.0%Δ'21'25Source: World BankEgypt CPI YoY12.0%-1.9%ΔSource: Central Bank of EgyptCBE Food Inflation-5.6%0.0%ΔSource: CBE Food PricesCost of Healthy Diet3.4int-$/day0.0%y/y'11'10Source: Our World in DataFood Insecurity (FIES)29.6%+0.3%Δ'11'10Source: Our World in DataRefugees in Egypt0peopleSource: UNHCR2.5. Online DonationsOnline Donations AnalyticsReal-time tracking of online donations, trends, and donor engagement patterns3. How We're Growing5-Year Growth Trajectory: From Regional Leader to Global ForceExceptional expansion trajectory achieving 43% CAGR despite economic headwinds - reaching global #3 rankingGrowth Trajectory AnalysisFive-year operational expansion+52% CAGR367.5MFY2024 TotalMeals Delivered (Annual)MealsLives Impacted (Cumulative)Lives201920202021202220232024202520260200.0M400.0M600.0M800.0MMeals Delivered (Annual)Projected GrowthHide ProjectionsLast updated: 4:49:44 PM+52.2%Meals CAGR2019-2024+42.3%Lives CAGRCumulative reach16.1MTotal ReachedSince 2019Strategic Growth InsightsAcceleration Factors• Digital transformation driving 51% online growth• Supply chain optimization reducing cost per meal• Strategic partnerships expanding reach• Government collaboration enhancing efficiencyFuture Targets• 500M meals by 2026 (35% increase)• 6M annual beneficiaries (21% growth)• Maintain sub-EGP 6.00 cost efficiency• Expand to 3 additional countriesFinancial FoundationFinancial Sustainability & Resource ManagementStrategic deficit of EGP 116M maintains full operations during crisis, covered by reserves built over previous yearsFinancial Health DashboardOperating Marginexcellent31.7%Reserve Adequacyexcellent7.0 monthsRevenueEGP 3.86B+3.4% YoYExpensesEGP 2.63B+18% YoYReservesEGP 1.53BLiquid assetsOrganizational Sustainability100%Program Efficiency77.27%Cash Coverage41.1%Risk LevelLowExecution ExcellenceHow We Deliver: Operational Excellence at ScaleWorld-class cost efficiency of EGP 6.36 per meal through 27/27 governorate coverage and optimized program mixGeographic Impact27/27Governorates5,000+PartnersCairo45.2M meals95% coverage2.2M peopleGiza38.7M meals92% coverage1.8M peopleAlexandria32.1M meals88% coverage1.5M peopleUpper Egypt89.3M meals85% coverage8.2M peopleDelta112.8M meals90% coverage12.1M peopleSinai & Red Sea12.4M meals78% coverage0.8M peopleProgram DistributionRegular Food Boxes45%165.4MSchool Feeding22%80.8MEmergency Relief18%66.1MNutrition Programs10%36.7MOther Programs5%18.4M14Meals per person5,479Daily reachMeasured OutcomesDietary Diversity ImprovementPositive25%Food Insecurity ReductionPositive7%QALYs GainedPositive10KlivesDALYs AvertedPositive15KyearsGlobal Recognition#3 Largest Food BankFirst Impact Evaluation in Egypt4. What's NextStrategic Roadmap & Executive ActionsData-driven priorities for scaling to 6M beneficiaries while addressing critical risks and innovation opportunitiesGrowth Opportunities• Scale to 6M beneficiaries by FY2026• Expand into 3 additional countries• Launch prevention programs in urban areas• Implement AI-driven supply chain optimizationRisk Mitigation• Diversify funding sources beyond 60%• Build 6-month operational reserves• Develop crisis response protocols• Strengthen government partnershipsInnovation Priorities• Deploy blockchain for transparency• Launch mobile nutrition education• Implement biometric beneficiary tracking• Develop predictive demand modelingComprehensive mission data for 367.5 million meals delivered across 27 governorates in FY2024/25····\u001b[39m\n\u001b[31m'11\"\u001b[39m\n    at /workspace/reload2/tests/dashboard-verification.spec.js:51:23",
+                        "location": {
+                          "file": "/workspace/reload2/tests/dashboard-verification.spec.js",
+                          "column": 23,
+                          "line": 51
+                        },
+                        "snippet": "  49 |     \n  50 |     for (const value of values) {\n> 51 |       expect(content).toContain(value);\n     |                       ^\n  52 |     }\n  53 |   });\n  54 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/workspace/reload2/tests/dashboard-verification.spec.js",
+                            "column": 23,
+                            "line": 51
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"195.72\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[39m\n\u001b[31m    Impact IntelligenceReal-time Analytics CenterLives2.0MMeals28.0MCost80Coverage3/27LIVE FY2024/25GLOBAL #3Report SectionsNavigate through impact analysisExecutive Dashboard✓High-level KPIs and organizational health overviewPeople Served4.96MMeals Delivered367.5MFinancial Analytics✓Revenue analysis, cost management & sustainability metricsRevenueEGP 2.20BProgram Ratio83%Operations Excellence✓Distribution efficiency, logistics & quality controlDistribution Rate94.7%Cost per PersonEGP 459Program Impact✓Protection, Prevention & Empowerment pillars analysisStunting Reduction86%School Feeding125KStakeholder Intelligence✓Brand performance, partnerships & digital engagementBrand Awareness84%NPS Score41Scenario Modeling✓Advanced econometric modeling and sensitivity analysisVariables8+Model R²84.7%Governance & Risk✓Board oversight, compliance & risk managementBoard Meetings12Audit Score96%Sustainability Impact✓Environmental footprint & sustainable development goalsSDG Targets12/17Carbon Footprint-15%Humanitarian Impact DashboardAdvanced analytics and real-time monitoring of Egypt's largest food security operationExecutive Story Flow:What we achieved→Why it matters→How we're growing→What's next1. What We AchievedStrategic Impact OverviewRecord-breaking humanitarian achievement: 4.96M lives impacted through 367.5M meals delivered across all of Egypt+43% CAGRLives Impacted2.0MpeopleUnique individuals reached nationwide+40% YoYMeals Delivered28.0MmealsTotal annual food assistance83% ratioCost Per MealEGP80.00All-inclusive program cost100% coverageCoverage27/27Governorates reached2. Why It MattersOperating in Crisis: Egypt's Economic RealityUnderstanding the challenging context: soaring food prices, currency pressure, and rising food insecurity driving unprecedented demandFAO Food Price Index126.3index+0.3%m/m+0.8%y/ySource: FAOBrent Crude Oil66.87USD/barrel-0.3%m/m-10.3%y/ySource: FREDUSD/EGP Exchange Rate0EGP per USDSource: Central BankEgypt EGX30 Index30.3Kpoints-2.3%m/m+5.6%y/ySource: Yahoo FinanceGlobal Wheat Price173.19USD/MT-12.0%m/m-15.6%y/ySource: FREDWhite Rice Price388.62USD/MT-2.0%m/m-35.8%y/ySource: FREDCooking Oil Price934.5USD/MT+3.5%m/m+11.5%y/ySource: FREDBeef Livestock Price298.26USD/MT+1.9%m/m+13.1%y/ySource: FREDChicken Feed Price383.52USD/MT-1.1%m/m-11.0%y/ySource: FREDAnimal Feed Price0USD/MTSource: FREDEgypt Unemployment0.0%Source: Our World in DataEgypt GDP Growth3.2%0.0%Δ'21'25Source: World BankEgypt CPI YoY12.0%-1.9%ΔSource: Central Bank of EgyptCBE Food Inflation-5.6%0.0%ΔSource: CBE Food PricesCost of Healthy Diet3.4int-$/day0.0%y/y'11'10Source: Our World in DataFood Insecurity (FIES)29.6%+0.3%Δ'11'10Source: Our World in DataRefugees in Egypt0peopleSource: UNHCR2.5. Online DonationsOnline Donations AnalyticsReal-time tracking of online donations, trends, and donor engagement patterns3. How We're Growing5-Year Growth Trajectory: From Regional Leader to Global ForceExceptional expansion trajectory achieving 43% CAGR despite economic headwinds - reaching global #3 rankingGrowth Trajectory AnalysisFive-year operational expansion+52% CAGR367.5MFY2024 TotalMeals Delivered (Annual)MealsLives Impacted (Cumulative)Lives201920202021202220232024202520260200.0M400.0M600.0M800.0MMeals Delivered (Annual)Projected GrowthHide ProjectionsLast updated: 4:49:44 PM+52.2%Meals CAGR2019-2024+42.3%Lives CAGRCumulative reach16.1MTotal ReachedSince 2019Strategic Growth InsightsAcceleration Factors• Digital transformation driving 51% online growth• Supply chain optimization reducing cost per meal• Strategic partnerships expanding reach• Government collaboration enhancing efficiencyFuture Targets• 500M meals by 2026 (35% increase)• 6M annual beneficiaries (21% growth)• Maintain sub-EGP 6.00 cost efficiency• Expand to 3 additional countriesFinancial FoundationFinancial Sustainability & Resource ManagementStrategic deficit of EGP 116M maintains full operations during crisis, covered by reserves built over previous yearsFinancial Health DashboardOperating Marginexcellent31.7%Reserve Adequacyexcellent7.0 monthsRevenueEGP 3.86B+3.4% YoYExpensesEGP 2.63B+18% YoYReservesEGP 1.53BLiquid assetsOrganizational Sustainability100%Program Efficiency77.27%Cash Coverage41.1%Risk LevelLowExecution ExcellenceHow We Deliver: Operational Excellence at ScaleWorld-class cost efficiency of EGP 6.36 per meal through 27/27 governorate coverage and optimized program mixGeographic Impact27/27Governorates5,000+PartnersCairo45.2M meals95% coverage2.2M peopleGiza38.7M meals92% coverage1.8M peopleAlexandria32.1M meals88% coverage1.5M peopleUpper Egypt89.3M meals85% coverage8.2M peopleDelta112.8M meals90% coverage12.1M peopleSinai & Red Sea12.4M meals78% coverage0.8M peopleProgram DistributionRegular Food Boxes45%165.4MSchool Feeding22%80.8MEmergency Relief18%66.1MNutrition Programs10%36.7MOther Programs5%18.4M14Meals per person5,479Daily reachMeasured OutcomesDietary Diversity ImprovementPositive25%Food Insecurity ReductionPositive7%QALYs GainedPositive10KlivesDALYs AvertedPositive15KyearsGlobal Recognition#3 Largest Food BankFirst Impact Evaluation in Egypt4. What's NextStrategic Roadmap & Executive ActionsData-driven priorities for scaling to 6M beneficiaries while addressing critical risks and innovation opportunitiesGrowth Opportunities• Scale to 6M beneficiaries by FY2026• Expand into 3 additional countries• Launch prevention programs in urban areas• Implement AI-driven supply chain optimizationRisk Mitigation• Diversify funding sources beyond 60%• Build 6-month operational reserves• Develop crisis response protocols• Strengthen government partnershipsInnovation Priorities• Deploy blockchain for transparency• Launch mobile nutrition education• Implement biometric beneficiary tracking• Develop predictive demand modelingComprehensive mission data for 367.5 million meals delivered across 27 governorates in FY2024/25····\u001b[39m\n\u001b[31m'11\"\u001b[39m\n\n  49 |     \n  50 |     for (const value of values) {\n> 51 |       expect(content).toContain(value);\n     |                       ^\n  52 |     }\n  53 |   });\n  54 |\n    at /workspace/reload2/tests/dashboard-verification.spec.js:51:23"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:41.763Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-65e43-uld-display-non-zero-values-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-65e43-uld-display-non-zero-values-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/workspace/reload2/tests/dashboard-verification.spec.js",
+                        "column": 23,
+                        "line": 51
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-20256e5840f94088e240",
+              "file": "dashboard-verification.spec.js",
+              "line": 44,
+              "column": 3
+            },
+            {
+              "title": "should have y/y and m/m indicators",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "passed",
+                      "duration": 37805,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.868Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-8e6fde87d39b7a1269f8",
+              "file": "dashboard-verification.spec.js",
+              "line": 55,
+              "column": 3
+            },
+            {
+              "title": "should display executive dashboard metrics",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 27100,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.060Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-5d08e0de7c8f6592beea",
+              "file": "dashboard-verification.spec.js",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "should display online donations section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "passed",
+                      "duration": 36300,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:41.967Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-a8ea983e2e2a23bffdc8",
+              "file": "dashboard-verification.spec.js",
+              "line": 71,
+              "column": 3
+            },
+            {
+              "title": "should navigate to admin panel",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 39206,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.664Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-8d7363ad01ad7637c019",
+              "file": "dashboard-verification.spec.js",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "should have working API endpoints",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 10,
+                      "status": "passed",
+                      "duration": 36805,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.262Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-b5bb3e43a0889745f2d4",
+              "file": "dashboard-verification.spec.js",
+              "line": 87,
+              "column": 3
+            },
+            {
+              "title": "should be responsive on mobile",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "timedOut",
+                      "duration": 47197,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:41.864Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-b001b-uld-be-responsive-on-mobile-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-b001b-uld-be-responsive-on-mobile-chromium/error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-4b6b503698d21000db8e",
+              "file": "dashboard-verification.spec.js",
+              "line": 108,
+              "column": 3
+            },
+            {
+              "title": "should be responsive on tablet",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 12,
+                      "status": "timedOut",
+                      "duration": 45613,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.961Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-37eee-uld-be-responsive-on-tablet-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-37eee-uld-be-responsive-on-tablet-chromium/error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-4afab66df44dbefa755a",
+              "file": "dashboard-verification.spec.js",
+              "line": 117,
+              "column": 3
+            },
+            {
+              "title": "should take baseline screenshot",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 13,
+                      "status": "timedOut",
+                      "duration": 44012,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.761Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-74add-ld-take-baseline-screenshot-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-74add-ld-take-baseline-screenshot-chromium/error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-292fd8c5b89e3e0c44d3",
+              "file": "dashboard-verification.spec.js",
+              "line": 126,
+              "column": 3
+            },
+            {
+              "title": "should verify Supabase connection",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 14,
+                      "status": "passed",
+                      "duration": 29199,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:41.566Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-17c5ec520818af10c7b1",
+              "file": "dashboard-verification.spec.js",
+              "line": 133,
+              "column": 3
+            },
+            {
+              "title": "should have no 404 errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 15,
+                      "status": "passed",
+                      "duration": 30402,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:42.763Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-90eaa837591360b8c000",
+              "file": "dashboard-verification.spec.js",
+              "line": 142,
+              "column": 3
+            },
+            {
+              "title": "should load within 5 seconds",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 16,
+                      "status": "failed",
+                      "duration": 37706,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m5000\u001b[39m\nReceived:   \u001b[31m5400\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m5000\u001b[39m\nReceived:   \u001b[31m5400\u001b[39m\n    at /workspace/reload2/tests/dashboard-verification.spec.js:160:22",
+                        "location": {
+                          "file": "/workspace/reload2/tests/dashboard-verification.spec.js",
+                          "column": 22,
+                          "line": 160
+                        },
+                        "snippet": "  158 |     const loadTime = Date.now() - startTime;\n  159 |     \n> 160 |     expect(loadTime).toBeLessThan(5000);\n      |                      ^\n  161 |   });\n  162 |\n  163 | });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/workspace/reload2/tests/dashboard-verification.spec.js",
+                            "column": 22,
+                            "line": 160
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m5000\u001b[39m\nReceived:   \u001b[31m5400\u001b[39m\n\n  158 |     const loadTime = Date.now() - startTime;\n  159 |     \n> 160 |     expect(loadTime).toBeLessThan(5000);\n      |                      ^\n  161 |   });\n  162 |\n  163 | });\n    at /workspace/reload2/tests/dashboard-verification.spec.js:160:22"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-05T09:55:43.265Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-04afa-hould-load-within-5-seconds-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/reload2/test-results/dashboard-verification-Das-04afa-hould-load-within-5-seconds-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/workspace/reload2/tests/dashboard-verification.spec.js",
+                        "column": 22,
+                        "line": 160
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "391eec1ae8cba1a7b045-19978e59115796e27d5c",
+              "file": "dashboard-verification.spec.js",
+              "line": 155,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-10-05T09:55:35.547Z",
+    "duration": 55688.684,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  }
+}
