@@ -65,62 +65,11 @@ export function GlobalSignalsSection() {
           spark={(s.ffpi as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
-        <MetricMicroCard
-          title="Brent Crude Oil"
-          value={Number((last(s.brent) as any)?.value) || 0}
-          format="number"
-          unit="USD/barrel"
-          description="Global oil benchmark affecting food transport costs and fertilizer prices."
-          dataStatus={getDataStatus('brent', s.isLoading, s.isError)}
-          dataSource="FRED"
-          delta={(() => {
-            const curr = last(s.brent) as any;
-            const prevVal = prev(s.brent) as any;
-            if (!curr || !prevVal) return undefined;
-            const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
-            return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
-          })()}
-          yoyChange={getYoY(s.brent)}
-          spark={(s.brent as any[]).map(p => ({ t: p.date, v: p.value }))}
-        />
+        {/* REMOVED: Brent Crude Oil - not directly operational for food bank */}
 
-        <MetricMicroCard
-          title="USD/EGP Exchange Rate"
-          value={Number((last(s.fx) as any)?.value) || 0}
-          format="number"
-          unit="EGP per USD"
-          description="Egyptian Pounds per US Dollar. Higher values mean weaker EGP, making imports more expensive."
-          dataStatus={getDataStatus('fx', s.isLoading, s.isError)}
-          dataSource="Central Bank"
-          delta={(() => {
-            const curr = last(s.fx) as any;
-            const prevVal = prev(s.fx) as any;
-            if (!curr || !prevVal) return undefined;
-            const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
-            return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
-          })()}
-          yoyChange={getYoY(s.fx)}
-          spark={(s.fx as any[]).map(p => ({ t: p.date, v: p.value }))}
-        />
+        {/* REMOVED: USD/EGP Exchange Rate - contextual, not directly operational */}
 
-        <MetricMicroCard
-          title="Egypt EGX30 Index"
-          value={Number((last(s.egx30) as any)?.value) || 0}
-          format="number"
-          unit="points"
-          description="Egypt's benchmark stock market index tracking top 30 companies. Indicates economic confidence."
-          dataStatus={getDataStatus('egx30', s.isLoading, s.isError)}
-          dataSource="Yahoo Finance"
-          delta={(() => {
-            const curr = last(s.egx30) as any;
-            const prevVal = prev(s.egx30) as any;
-            if (!curr || !prevVal) return undefined;
-            const pct = ((curr.value - prevVal.value) / prevVal.value) * 100;
-            return { value: pct, label: 'm/m', direction: pct >= 0 ? 'up' as const : 'down' as const };
-          })()}
-          yoyChange={getYoY(s.egx30)}
-          spark={(s.egx30 as any[]).map(p => ({ t: p.date, v: p.value }))}
-        />
+        {/* REMOVED: Egypt EGX30 Index - not directly operational for food bank */}
       </PageGrid>
 
       {/* Row 2: Commodity Prices - Staples */}
@@ -242,39 +191,9 @@ export function GlobalSignalsSection() {
           spark={(s.animalFeed as any[]).map(p => ({ t: p.date, v: p.value }))}
         />
 
-        <MetricMicroCard
-          title="Egypt Unemployment"
-          value={Number((last(s.unemployment) as any)?.value) || 0}
-          format="percentage"
-          description="Percentage of Egypt's labor force unemployed. Affects food purchasing power."
-          dataStatus={getDataStatus('unemployment', s.isLoading, s.isError)}
-          dataSource="Our World in Data"
-          delta={(() => {
-            const curr = last(s.unemployment) as any;
-            const prevVal = prev(s.unemployment) as any;
-            if (!curr || !prevVal) return undefined;
-            const d = curr.value - prevVal.value;
-            return { value: d, label: 'Δ', direction: d >= 0 ? 'up' as const : 'down' as const };
-          })()}
-          spark={(s.unemployment as any[]).map(p => ({ t: p.date, v: p.value }))}
-        />
+        {/* REMOVED: Egypt Unemployment - contextual, not directly operational */}
 
-        <MetricMicroCard
-          title="Egypt GDP Growth"
-          value={Number((last(s.gdp) as any)?.value) || 0}
-          format="percentage"
-          description="Annual GDP growth rate. Indicates economic health and food security capacity."
-          dataStatus={getDataStatus('gdp', s.isLoading, s.isError)}
-          dataSource="World Bank"
-          delta={(() => {
-            const curr = last(s.gdp) as any;
-            const prevVal = prev(s.gdp) as any;
-            if (!curr || !prevVal) return undefined;
-            const d = curr.value - prevVal.value;
-            return { value: d, label: 'Δ', direction: d >= 0 ? 'up' as const : 'down' as const };
-          })()}
-          spark={(s.gdp as any[]).map(p => ({ t: p.date, v: p.value }))}
-        />
+        {/* REMOVED: Egypt GDP Growth - contextual, not directly operational */}
       </PageGrid>
 
       {/* Row 4: Egypt Specific Indicators */}

@@ -18,19 +18,19 @@ export const DATA_SOURCE = {
   imf:       'live',  // Food CPI via /api/imf-cpi (with headline fallback)
   unhcr:     'live',  // via /api/unhcr-egy (with OWID fallback)
   wheat:     'live',  // via /api/wheat
-  fx:        'live',  // NEW: USD/EGP via /api/fx
+  // fx:        'live',  // REMOVED: Contextual, not directly operational
   diet:      'live',  // NEW: Cost of healthy diet via /api/diet-cost
   fies:      'live',  // NEW: Food insecurity (FIES) via /api/fies-egy
-  brent:     'live',  // NEW: Brent crude oil price
-  unemployment: 'live', // NEW: Egypt unemployment rate
-  gdp:       'live',  // NEW: Egypt GDP growth
+  // brent:     'live',  // REMOVED: Not directly operational for food bank
+  // unemployment: 'live', // REMOVED: Contextual, not directly operational
+  // gdp:       'live',  // REMOVED: Contextual, not directly operational
   wheatPrice: 'live', // NEW: Global wheat price
   rice:      'live',  // NEW: White rice price
   cookingOil: 'live', // NEW: Cooking oil price
   beef:      'live',  // NEW: Beef livestock price
   chickenFeed: 'live', // NEW: Chicken feed price
   animalFeed: 'live', // NEW: Animal feed price
-  egx30:     'live',  // NEW: Egypt EGX30 stock index
+  // egx30:     'live',  // REMOVED: Not directly operational for food bank
      donations: 'live',  // NEW: Online donations via /api/donations
 } as const;
 

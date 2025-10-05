@@ -98,16 +98,33 @@ const CustomTooltip = createChartTooltip((data: any) => {
 });
 
 export const DonationsChart: React.FC<DonationsChartProps> = ({ data }) => {
-  const { summary, dailyTotals, monthlyTotals } = data;
+  // Guard clause for missing or invalid data
+  if (!data || !data.summary || typeof data.summary !== 'object') {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Online Donations Analytics</CardTitle>
+          <CardDescription>Loading donation data...</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            Donation data is currently unavailable. Please check back later.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const { summary, dailyTotals = [], monthlyTotals = [] } = data;
 
   // Get last 30 days for daily view
   const recentDaily = useMemo(() => {
-    return dailyTotals.slice(-30);
+    return dailyTotals?.slice(-30) || [];
   }, [dailyTotals]);
 
   // Get last 12 months for monthly view
   const recentMonthly = useMemo(() => {
-    return monthlyTotals.slice(-12);
+    return monthlyTotals?.slice(-12) || [];
   }, [monthlyTotals]);
 
   return (

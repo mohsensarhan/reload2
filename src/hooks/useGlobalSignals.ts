@@ -187,46 +187,37 @@ export function useGlobalSignals() {
         refetchOnWindowFocus: false,
       },
       // 6. USD/EGP Exchange Rate
-      {
-        queryKey: ['fx-usd-egp'],
-        queryFn: async () => {
-          try {
-            if (DATA_SOURCE.fx === 'live') {
-              // Use ExchangeRate-API which provides current USD/EGP rates
-              const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD', {
-                headers: { 'User-Agent': 'EFB-Dashboard/1.0' }
-              });
-              
-              if (!response.ok) throw new Error(`ExchangeRate API ${response.status}`);
-              
-              const json = await response.json();
-              const currentRate = json.rates?.EGP;
-              
-              if (currentRate && Number.isFinite(currentRate)) {
-                // Generate recent monthly data based on current rate
-                const points = lastNMonths(24).map((month, i) => {
-                  const variation = Math.sin(i * 0.3) * 0.5; // Small monthly variations
-                  const baseRate = currentRate - (i * 0.02); // Slight historical trend
-                  return {
-                    date: month,
-                    value: Number((baseRate + variation).toFixed(2))
-                  };
-                }).reverse();
-                
-                return points;
-              }
-              
-              return mockFX_USD_EGP_24M;
-            }
-            return mockFX_USD_EGP_24M;
-          } catch (error) {
-            console.warn('[FX] API failed, using mock data:', error);
-            return mockFX_USD_EGP_24M;
-          }
-        },
-        staleTime: 6 * 3600 * 1000,
-        refetchOnWindowFocus: false,
-      },
+      // REMOVED: USD/EGP Rate - contextual, not directly operational
+      // {
+      //   queryKey: ['fx-usd-egp'],
+      //   queryFn: async () => {
+      //     try {
+      //       if (DATA_SOURCE.fx === 'live') {
+      //         const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD', {
+      //           headers: { 'User-Agent': 'EFB-Dashboard/1.0' }
+      //         });
+      //         if (!response.ok) throw new Error(`ExchangeRate API ${response.status}`);
+      //         const json = await response.json();
+      //         const currentRate = json.rates?.EGP;
+      //         if (currentRate && Number.isFinite(currentRate)) {
+      //           const points = lastNMonths(24).map((month, i) => {
+      //             const variation = Math.sin(i * 0.3) * 0.5;
+      //             const baseRate = currentRate - (i * 0.02);
+      //             return { date: month, value: Number((baseRate + variation).toFixed(2)) };
+      //           }).reverse();
+      //           return points;
+      //         }
+      //         return mockFX_USD_EGP_24M;
+      //       }
+      //       return mockFX_USD_EGP_24M;
+      //     } catch (error) {
+      //       console.warn('[FX] API failed, using mock data:', error);
+      //       return mockFX_USD_EGP_24M;
+      //     }
+      //   },
+      //   staleTime: 6 * 3600 * 1000,
+      //   refetchOnWindowFocus: false,
+      // },
       // 7. Cost of Healthy Diet
       {
         queryKey: ['diet-egy'],
@@ -282,59 +273,62 @@ export function useGlobalSignals() {
         refetchOnWindowFocus: false,
       },
       // 10. Brent Crude Oil Price
-      {
-        queryKey: ['brent-crude'],
-        queryFn: async () => {
-          try {
-            if (DATA_SOURCE.brent === 'live') {
-              const result = await fetchBrentCrude();
-              return result.points || mockBrentCrude_24M;
-            }
-            return mockBrentCrude_24M;
-          } catch (error) {
-            console.warn('[Brent Crude] API failed, using mock data:', error);
-            return mockBrentCrude_24M;
-          }
-        },
-        staleTime: 24 * 3600 * 1000, // 24 hours
-        refetchOnWindowFocus: false,
-      },
+      // REMOVED: Brent Crude - not directly operational for food bank
+      // {
+      //   queryKey: ['brent-crude'],
+      //   queryFn: async () => {
+      //     try {
+      //       if (DATA_SOURCE.brent === 'live') {
+      //         const result = await fetchBrentCrude();
+      //         return result.points || mockBrentCrude_24M;
+      //       }
+      //       return mockBrentCrude_24M;
+      //     } catch (error) {
+      //       console.warn('[Brent Crude] API failed, using mock data:', error);
+      //       return mockBrentCrude_24M;
+      //     }
+      //   },
+      //   staleTime: 24 * 3600 * 1000, // 24 hours
+      //   refetchOnWindowFocus: false,
+      // },
       // 11. Egypt Unemployment Rate
-      {
-        queryKey: ['egypt-unemployment'],
-        queryFn: async () => {
-          try {
-            if (DATA_SOURCE.unemployment === 'live') {
-              const result = await fetchEgyptUnemployment();
-              return result.points || mockEgyptUnemployment_10Y;
-            }
-            return mockEgyptUnemployment_10Y;
-          } catch (error) {
-            console.warn('[Egypt Unemployment] API failed, using mock data:', error);
-            return mockEgyptUnemployment_10Y;
-          }
-        },
-        staleTime: 7 * 24 * 3600 * 1000, // 7 days
-        refetchOnWindowFocus: false,
-      },
+      // REMOVED: Egypt Unemployment - contextual, not directly operational
+      // {
+      //   queryKey: ['egypt-unemployment'],
+      //   queryFn: async () => {
+      //     try {
+      //       if (DATA_SOURCE.unemployment === 'live') {
+      //         const result = await fetchEgyptUnemployment();
+      //         return result.points || mockEgyptUnemployment_10Y;
+      //       }
+      //       return mockEgyptUnemployment_10Y;
+      //     } catch (error) {
+      //       console.warn('[Egypt Unemployment] API failed, using mock data:', error);
+      //       return mockEgyptUnemployment_10Y;
+      //     }
+      //   },
+      //   staleTime: 7 * 24 * 3600 * 1000, // 7 days
+      //   refetchOnWindowFocus: false,
+      // },
       // 12. Egypt GDP Growth
-      {
-        queryKey: ['egypt-gdp'],
-        queryFn: async () => {
-          try {
-            if (DATA_SOURCE.gdp === 'live') {
-              const result = await fetchEgyptGDP();
-              return result.points || mockEgyptGDP_10Y;
-            }
-            return mockEgyptGDP_10Y;
-          } catch (error) {
-            console.warn('[Egypt GDP] API failed, using mock data:', error);
-            return mockEgyptGDP_10Y;
-          }
-        },
-        staleTime: 7 * 24 * 3600 * 1000, // 7 days
-        refetchOnWindowFocus: false,
-      },
+      // REMOVED: Egypt GDP Growth - contextual, not directly operational
+      // {
+      //   queryKey: ['egypt-gdp'],
+      //   queryFn: async () => {
+      //     try {
+      //       if (DATA_SOURCE.gdp === 'live') {
+      //         const result = await fetchEgyptGDP();
+      //         return result.points || mockEgyptGDP_10Y;
+      //       }
+      //       return mockEgyptGDP_10Y;
+      //     } catch (error) {
+      //       console.warn('[Egypt GDP] API failed, using mock data:', error);
+      //       return mockEgyptGDP_10Y;
+      //     }
+      //   },
+      //   staleTime: 7 * 24 * 3600 * 1000, // 7 days
+      //   refetchOnWindowFocus: false,
+      // },
       // 13. Global Wheat Price
       {
         queryKey: ['wheat-price'],
@@ -444,23 +438,24 @@ export function useGlobalSignals() {
         refetchOnWindowFocus: false,
       },
       // 19. Egypt EGX30 Stock Index
-      {
-        queryKey: ['egx30'],
-        queryFn: async () => {
-          try {
-            if (DATA_SOURCE.egx30 === 'live') {
-              const result = await fetchEGX30();
-              return result.points || [];
-            }
-            return [];
-          } catch (error) {
-            console.warn('[EGX30] API failed:', error);
-            return [];
-          }
-        },
-        staleTime: 6 * 3600 * 1000, // 6 hours
-        refetchOnWindowFocus: false,
-      },
+      // REMOVED: EGX30 - not directly operational for food bank
+      // {
+      //   queryKey: ['egx30'],
+      //   queryFn: async () => {
+      //     try {
+      //       if (DATA_SOURCE.egx30 === 'live') {
+      //         const result = await fetchEGX30();
+      //         return result.points || [];
+      //       }
+      //       return [];
+      //     } catch (error) {
+      //       console.warn('[EGX30] API failed:', error);
+      //       return [];
+      //     }
+      //   },
+      //   staleTime: 6 * 3600 * 1000, // 6 hours
+      //   refetchOnWindowFocus: false,
+      // },
       // 20. Online Donations
       {
         queryKey: ['donations'],
@@ -488,20 +483,20 @@ export function useGlobalSignals() {
     cbeInflationResult,
     openMeteoResult,
     unhcrEgyResult,
-    fxResult,
+    // fxResult, // REMOVED
     dietResult,
     fiesResult,
     cbeFoodResult,
-    brentResult,
-    unemploymentResult,
-    gdpResult,
+    // brentResult, // REMOVED
+    // unemploymentResult, // REMOVED
+    // gdpResult, // REMOVED
     wheatPriceResult,
     riceResult,
     cookingOilResult,
     beefResult,
     chickenFeedResult,
     animalFeedResult,
-    egx30Result,
+    // egx30Result, // REMOVED
   ] = results;
     const donationsResult = results[results.length - 1] || { data: {} };
 
@@ -511,19 +506,19 @@ export function useGlobalSignals() {
   const cbeFood = cbeFoodResult.data || [];
   const et0 = openMeteoResult.data || [];
   const refugees = unhcrEgyResult.data || [];
-  const fx = fxResult.data || [];
+  // const fx = fxResult.data || []; // REMOVED
   const diet = dietResult.data || [];
   const fies = fiesResult.data || [];
-  const brent = brentResult.data || [];
-  const unemployment = unemploymentResult.data || [];
-  const gdp = gdpResult.data || [];
+  // const brent = brentResult.data || []; // REMOVED
+  // const unemployment = unemploymentResult.data || []; // REMOVED
+  // const gdp = gdpResult.data || []; // REMOVED
   const wheatPrice = wheatPriceResult.data || [];
   const rice = riceResult.data || [];
   const cookingOil = cookingOilResult.data || [];
   const beef = beefResult.data || [];
   const chickenFeed = chickenFeedResult.data || [];
   const animalFeed = animalFeedResult.data || [];
-  const egx30 = egx30Result.data || [];
+  // const egx30 = egx30Result.data || []; // REMOVED
     const donations = donationsResult.data || {};
 
   // Enhanced debug logging
@@ -533,7 +528,7 @@ export function useGlobalSignals() {
     cbeInflation: { loading: cbeInflationResult.isLoading, error: !!cbeInflationResult.error, hasData: !!cbeInflationResult.data?.length },
     openMeteo: { loading: openMeteoResult.isLoading, error: !!openMeteoResult.error, hasData: !!openMeteoResult.data?.length },
     unhcr: { loading: unhcrEgyResult.isLoading, error: !!unhcrEgyResult.error, hasData: !!unhcrEgyResult.data?.length },
-    fx: { loading: fxResult.isLoading, error: !!fxResult.error, hasData: !!fxResult.data?.length },
+    // fx: { loading: fxResult.isLoading, error: !!fxResult.error, hasData: !!fxResult.data?.length }, // REMOVED
     diet: { loading: dietResult.isLoading, error: !!dietResult.error, hasData: !!dietResult.data?.length },
     fies: { loading: fiesResult.isLoading, error: !!fiesResult.error, hasData: !!fiesResult.data?.length },
   });
@@ -541,7 +536,7 @@ export function useGlobalSignals() {
   console.log('[DEBUG] Data Lengths and Current Values:', {
     ffpi: `${ffpi.length} items, current: ${(last(ffpi) as any)?.value || 'N/A'}`,
     imfFood: `${imfFood.length} items, current: ${(last(imfFood) as any)?.value || 'N/A'}`,
-    fx: `${fx.length} items, current: ${(last(fx) as any)?.value || 'N/A'}`,
+    // fx: `${fx.length} items, current: ${(last(fx) as any)?.value || 'N/A'}`, // REMOVED
     et0: `${et0.length} items, current: ${(last(et0) as any)?.anomaly_mm || (last(et0) as any)?.value || 'N/A'}`,
     diet: `${diet.length} items, current: ${(last(diet) as any)?.value || 'N/A'}`,
     fies: `${fies.length} items, current: ${(last(fies) as any)?.value || 'N/A'}`,
@@ -556,19 +551,19 @@ export function useGlobalSignals() {
     cbeFood,
     et0,
     refugees,
-    fx,
+    // fx, // REMOVED
     diet,
     fies,
-    brent,
-    unemployment,
-    gdp,
+    // brent, // REMOVED
+    // unemployment, // REMOVED
+    // gdp, // REMOVED
     wheatPrice,
     rice,
     cookingOil,
     beef,
     chickenFeed,
     animalFeed,
-    egx30,
+    // egx30, // REMOVED
        donations,
     isLoading: results.some(r => r.isLoading),
     isError: results.some(r => r.isError),
