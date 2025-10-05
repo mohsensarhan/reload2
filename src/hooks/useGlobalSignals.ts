@@ -528,7 +528,7 @@ export function useGlobalSignals() {
     cbeInflation: { loading: cbeInflationResult.isLoading, error: !!cbeInflationResult.error, hasData: !!cbeInflationResult.data?.length },
     openMeteo: { loading: openMeteoResult.isLoading, error: !!openMeteoResult.error, hasData: !!openMeteoResult.data?.length },
     unhcr: { loading: unhcrEgyResult.isLoading, error: !!unhcrEgyResult.error, hasData: !!unhcrEgyResult.data?.length },
-    fx: { loading: fxResult.isLoading, error: !!fxResult.error, hasData: !!fxResult.data?.length },
+    // fx: { loading: fxResult.isLoading, error: !!fxResult.error, hasData: !!fxResult.data?.length }, // REMOVED
     diet: { loading: dietResult.isLoading, error: !!dietResult.error, hasData: !!dietResult.data?.length },
     fies: { loading: fiesResult.isLoading, error: !!fiesResult.error, hasData: !!fiesResult.data?.length },
   });
@@ -536,7 +536,7 @@ export function useGlobalSignals() {
   console.log('[DEBUG] Data Lengths and Current Values:', {
     ffpi: `${ffpi.length} items, current: ${(last(ffpi) as any)?.value || 'N/A'}`,
     imfFood: `${imfFood.length} items, current: ${(last(imfFood) as any)?.value || 'N/A'}`,
-    fx: `${fx.length} items, current: ${(last(fx) as any)?.value || 'N/A'}`,
+    // fx: `${fx.length} items, current: ${(last(fx) as any)?.value || 'N/A'}`, // REMOVED
     et0: `${et0.length} items, current: ${(last(et0) as any)?.anomaly_mm || (last(et0) as any)?.value || 'N/A'}`,
     diet: `${diet.length} items, current: ${(last(diet) as any)?.value || 'N/A'}`,
     fies: `${fies.length} items, current: ${(last(fies) as any)?.value || 'N/A'}`,
