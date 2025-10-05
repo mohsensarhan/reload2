@@ -98,6 +98,18 @@ const CustomTooltip = createChartTooltip((data: any) => {
 });
 
 export const DonationsChart: React.FC<DonationsChartProps> = ({ data }) => {
+  // Guard clause for missing data
+  if (!data || !data.summary) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Online Donations Analytics</CardTitle>
+          <CardDescription>Loading donation data...</CardDescription>
+        </CardHeader>
+      </Card>
+    );
+  }
+
   const { summary, dailyTotals, monthlyTotals } = data;
 
   // Get last 30 days for daily view
