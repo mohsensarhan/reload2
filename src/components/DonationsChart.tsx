@@ -102,12 +102,12 @@ export const DonationsChart: React.FC<DonationsChartProps> = ({ data }) => {
 
   // Get last 30 days for daily view
   const recentDaily = useMemo(() => {
-    return dailyTotals.slice(-30);
+    return dailyTotals?.slice(-30) || [];
   }, [dailyTotals]);
 
   // Get last 12 months for monthly view
   const recentMonthly = useMemo(() => {
-    return monthlyTotals.slice(-12);
+    return monthlyTotals?.slice(-12) || [];
   }, [monthlyTotals]);
 
   return (

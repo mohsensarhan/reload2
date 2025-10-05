@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-10-05T11:16:10.298Z",
+  "totalTests": 9,
+  "devices": [
+    "Mobile (iPhone SE)",
+    "Tablet (iPad)",
+    "Desktop (Full HD)"
+  ],
+  "pages": [
+    "Dashboard Home",
+    "Login Page",
+    "Admin Panel"
+  ],
+  "screenshots": 12,
+  "screenshotsList": [
+    "ERROR-desktop-dashboard-home.png",
+    "ERROR-mobile-dashboard-home.png",
+    "ERROR-tablet-dashboard-home.png",
+    "desktop-admin-panel.png",
+    "desktop-dashboard-home.png",
+    "desktop-login-page.png",
+    "mobile-admin-panel.png",
+    "mobile-dashboard-home.png",
+    "mobile-login-page.png",
+    "tablet-admin-panel.png",
+    "tablet-dashboard-home.png",
+    "tablet-login-page.png"
+  ]
+}
