@@ -1,0 +1,630 @@
+
+Running 10 tests using 1 worker
+
+[1A[2K[1/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Dashboard Home
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Dashboard Home
+
+================================================================================
+
+[1A[2K🔍 Testing: Mobile (iPhone SE) - Dashboard Home
+
+[1A[2K📐 Viewport: 375x667
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Humanitarian Impact Dashboard
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/mobile-dashboard-home.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.h-screen
+
+[1A[2K    2. OL.fixed ↔ DIV.flex-1
+
+[1A[2K    3. OL.fixed ↔ HEADER.flex-shrink-0
+
+[1A[2K    4. OL.fixed ↔ DIV.flex
+
+[1A[2K    5. OL.fixed ↔ DIV.flex
+
+[1A[2K  ⚠️  WARNING: 5 elements with text overflow
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ⚠️  WARNING: 24 console errors
+
+[1A[2K    1. WebSocket connection to 'wss://oktiojqphavkqeirbbul.supabase.co/realtime/v1/websocket?apikey=eyJhbGc
+
+[1A[2K    2. Failed to load resource: the server responded with a status of 401 ()
+
+[1A[2K    3. Error fetching executive metrics: {message: Invalid API key, hint: Double check your Supabase `anon`
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 70/100
+
+[1A[2K⚠️  NEEDS IMPROVEMENT - Several issues detected
+
+[1A[2K================================================================================
+
+
+[1A[2K
+❌ ERROR: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: >= [32m80[39m
+Received:    [31m70[39m
+
+
+[1A[2K📸 Error screenshot saved: /workspace/reload2/test-results/multi-device-verification/ERROR-mobile-dashboard-home.png
+
+
+
+[1A[2K  1) [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Dashboard Home 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: >= [32m80[39m
+    Received:    [31m70[39m
+
+      263 |           
+      264 |           // Test should pass if quality score is above threshold
+    > 265 |           expect(qualityScore).toBeGreaterThanOrEqual(80);
+          |                                ^
+      266 |           
+      267 |         } catch (error) {
+      268 |           console.log(`\n❌ ERROR: ${error.message}\n`);
+        at /workspace/reload2/tests/comprehensive-multi-device-verification.spec.js:265:32
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/comprehensive-multi-device-d8ade--iPhone-SE---Dashboard-Home-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[2/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Login Page
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Login Page
+
+================================================================================
+
+[1A[2K🔍 Testing: Mobile (iPhone SE) - Login Page
+
+[1A[2K📐 Viewport: 375x667
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/login
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Sign In
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/mobile-login-page.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.min-h-screen
+
+[1A[2K    2. DIV.flex ↔ DIV.p-6
+
+[1A[2K    3. DIV.flex ↔ FORM.space-y-4
+
+[1A[2K    4. DIV.flex ↔ DIV.space-y-2
+
+[1A[2K    5. svg ↔ INPUT.flex
+
+[1A[2K  ✅ No text overflow issues
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ✅ No console errors
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 90/100
+
+[1A[2K✅ GOOD - Minor issues that should be fixed
+
+[1A[2K================================================================================
+
+
+[1A[2K[3/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Admin Panel
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Admin Panel
+
+================================================================================
+
+[1A[2K🔍 Testing: Mobile (iPhone SE) - Admin Panel
+
+[1A[2K📐 Viewport: 375x667
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/admin
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Admin
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/mobile-admin-panel.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.min-h-screen
+
+[1A[2K    2. DIV.flex ↔ DIV.p-6
+
+[1A[2K    3. DIV.flex ↔ FORM.space-y-4
+
+[1A[2K    4. DIV.flex ↔ DIV.space-y-2
+
+[1A[2K    5. svg ↔ INPUT.flex
+
+[1A[2K  ✅ No text overflow issues
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ✅ No console errors
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 90/100
+
+[1A[2K✅ GOOD - Minor issues that should be fixed
+
+[1A[2K================================================================================
+
+
+[1A[2K[4/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Dashboard Home
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Dashboard Home
+
+================================================================================
+
+[1A[2K🔍 Testing: Tablet (iPad) - Dashboard Home
+
+[1A[2K📐 Viewport: 768x1024
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Humanitarian Impact Dashboard
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/tablet-dashboard-home.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.h-screen
+
+[1A[2K    2. OL.fixed ↔ DIV.flex-1
+
+[1A[2K    3. OL.fixed ↔ DIV.space-y-8
+
+[1A[2K    4. OL.fixed ↔ SECTION
+
+[1A[2K    5. OL.fixed ↔ DIV.grid
+
+[1A[2K  ⚠️  WARNING: 5 elements with text overflow
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ⚠️  WARNING: 24 console errors
+
+[1A[2K    1. WebSocket connection to 'wss://oktiojqphavkqeirbbul.supabase.co/realtime/v1/websocket?apikey=eyJhbGc
+
+[1A[2K    2. Failed to load resource: the server responded with a status of 401 ()
+
+[1A[2K    3. Error fetching executive metrics: {message: Invalid API key, hint: Double check your Supabase `anon`
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 70/100
+
+[1A[2K⚠️  NEEDS IMPROVEMENT - Several issues detected
+
+[1A[2K================================================================================
+
+
+[1A[2K
+❌ ERROR: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: >= [32m80[39m
+Received:    [31m70[39m
+
+
+[1A[2K📸 Error screenshot saved: /workspace/reload2/test-results/multi-device-verification/ERROR-tablet-dashboard-home.png
+
+
+
+[1A[2K  2) [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Dashboard Home 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: >= [32m80[39m
+    Received:    [31m70[39m
+
+      263 |           
+      264 |           // Test should pass if quality score is above threshold
+    > 265 |           expect(qualityScore).toBeGreaterThanOrEqual(80);
+          |                                ^
+      266 |           
+      267 |         } catch (error) {
+      268 |           console.log(`\n❌ ERROR: ${error.message}\n`);
+        at /workspace/reload2/tests/comprehensive-multi-device-verification.spec.js:265:32
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/comprehensive-multi-device-300e7-ablet-iPad---Dashboard-Home-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[5/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Login Page
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Login Page
+
+================================================================================
+
+[1A[2K🔍 Testing: Tablet (iPad) - Login Page
+
+[1A[2K📐 Viewport: 768x1024
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/login
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Sign In
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/tablet-login-page.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.min-h-screen
+
+[1A[2K    2. DIV.flex ↔ DIV.p-6
+
+[1A[2K    3. DIV.flex ↔ FORM.space-y-4
+
+[1A[2K    4. DIV.flex ↔ DIV.space-y-2
+
+[1A[2K    5. svg ↔ INPUT.flex
+
+[1A[2K  ✅ No text overflow issues
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ✅ No console errors
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 90/100
+
+[1A[2K✅ GOOD - Minor issues that should be fixed
+
+[1A[2K================================================================================
+
+
+[1A[2K[6/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Admin Panel
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Admin Panel
+
+================================================================================
+
+[1A[2K🔍 Testing: Tablet (iPad) - Admin Panel
+
+[1A[2K📐 Viewport: 768x1024
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/admin
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Admin
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/tablet-admin-panel.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.min-h-screen
+
+[1A[2K    2. DIV.flex ↔ DIV.p-6
+
+[1A[2K    3. DIV.flex ↔ FORM.space-y-4
+
+[1A[2K    4. DIV.flex ↔ DIV.space-y-2
+
+[1A[2K    5. svg ↔ INPUT.flex
+
+[1A[2K  ✅ No text overflow issues
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ✅ No console errors
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 90/100
+
+[1A[2K✅ GOOD - Minor issues that should be fixed
+
+[1A[2K================================================================================
+
+
+[1A[2K[7/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Dashboard Home
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Dashboard Home
+
+================================================================================
+
+[1A[2K🔍 Testing: Desktop (Full HD) - Dashboard Home
+
+[1A[2K📐 Viewport: 1920x1080
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Humanitarian Impact Dashboard
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/desktop-dashboard-home.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.h-screen
+
+[1A[2K    2. OL.fixed ↔ DIV.flex-1
+
+[1A[2K    3. OL.fixed ↔ DIV.space-y-8
+
+[1A[2K    4. OL.fixed ↔ SECTION
+
+[1A[2K    5. OL.fixed ↔ DIV.space-y-3
+
+[1A[2K  ⚠️  WARNING: 5 elements with text overflow
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ⚠️  WARNING: 24 console errors
+
+[1A[2K    1. WebSocket connection to 'wss://oktiojqphavkqeirbbul.supabase.co/realtime/v1/websocket?apikey=eyJhbGc
+
+[1A[2K    2. Failed to load resource: the server responded with a status of 401 ()
+
+[1A[2K    3. Error fetching executive metrics: {message: Invalid API key, hint: Double check your Supabase `anon`
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 70/100
+
+[1A[2K⚠️  NEEDS IMPROVEMENT - Several issues detected
+
+[1A[2K================================================================================
+
+
+[1A[2K
+❌ ERROR: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: >= [32m80[39m
+Received:    [31m70[39m
+
+
+[1A[2K📸 Error screenshot saved: /workspace/reload2/test-results/multi-device-verification/ERROR-desktop-dashboard-home.png
+
+
+
+[1A[2K  3) [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Dashboard Home 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: >= [32m80[39m
+    Received:    [31m70[39m
+
+      263 |           
+      264 |           // Test should pass if quality score is above threshold
+    > 265 |           expect(qualityScore).toBeGreaterThanOrEqual(80);
+          |                                ^
+      266 |           
+      267 |         } catch (error) {
+      268 |           console.log(`\n❌ ERROR: ${error.message}\n`);
+        at /workspace/reload2/tests/comprehensive-multi-device-verification.spec.js:265:32
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/comprehensive-multi-device-c0eae-op-Full-HD---Dashboard-Home-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[8/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Login Page
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Login Page
+
+================================================================================
+
+[1A[2K🔍 Testing: Desktop (Full HD) - Login Page
+
+[1A[2K📐 Viewport: 1920x1080
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/login
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Sign In
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/desktop-login-page.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.min-h-screen
+
+[1A[2K    2. DIV.flex ↔ DIV.p-6
+
+[1A[2K    3. DIV.flex ↔ FORM.space-y-4
+
+[1A[2K    4. DIV.flex ↔ DIV.space-y-2
+
+[1A[2K    5. svg ↔ INPUT.flex
+
+[1A[2K  ✅ No text overflow issues
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ✅ No console errors
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 90/100
+
+[1A[2K✅ GOOD - Minor issues that should be fixed
+
+[1A[2K================================================================================
+
+
+[1A[2K[9/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Admin Panel
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Admin Panel
+
+================================================================================
+
+[1A[2K🔍 Testing: Desktop (Full HD) - Admin Panel
+
+[1A[2K📐 Viewport: 1920x1080
+
+[1A[2K🔗 URL: https://8081-c8be9a28-bef3-487f-8bd4-38dccebfb252.proxy.daytona.works/admin
+
+[1A[2K================================================================================
+
+[1A[2K📄 Navigating to page...
+
+[1A[2K⏳ Waiting for: text=Admin
+
+[1A[2K📸 Screenshot saved: /workspace/reload2/test-results/multi-device-verification/desktop-admin-panel.png
+
+[1A[2K
+🔍 Checking for visual issues...
+
+[1A[2K  ✅ No horizontal scrollbar
+
+[1A[2K  ⚠️  WARNING: 5 potential overlaps detected
+
+[1A[2K    1. OL.fixed ↔ DIV.min-h-screen
+
+[1A[2K    2. DIV.flex ↔ DIV.p-6
+
+[1A[2K    3. DIV.flex ↔ FORM.space-y-4
+
+[1A[2K    4. DIV.flex ↔ DIV.space-y-2
+
+[1A[2K    5. svg ↔ INPUT.flex
+
+[1A[2K  ✅ No text overflow issues
+
+[1A[2K  ✅ All images loaded correctly
+
+[1A[2K  ✅ No console errors
+
+[1A[2K  ✅ No page errors
+
+[1A[2K  ✅ All elements fit within viewport
+
+[1A[2K
+📊 Quality Score: 90/100
+
+[1A[2K✅ GOOD - Minor issues that should be fixed
+
+[1A[2K================================================================================
+
+
+[1A[2K[10/10] [chromium] › tests/comprehensive-multi-device-verification.spec.js:290:3 › Comprehensive Multi-Device Verification › Generate comprehensive verification report
+[1A[2K[chromium] › tests/comprehensive-multi-device-verification.spec.js:290:3 › Comprehensive Multi-Device Verification › Generate comprehensive verification report
+
+================================================================================
+
+[1A[2K📝 GENERATING COMPREHENSIVE VERIFICATION REPORT
+
+[1A[2K================================================================================
+
+
+[1A[2K✅ Report generated successfully
+
+[1A[2K📊 Total tests: 9
+
+[1A[2K📸 Screenshots captured: 12
+
+[1A[2K📁 Results directory: /workspace/reload2/test-results/multi-device-verification
+
+[1A[2K
+================================================================================
+
+
+[1A[2K  3 failed
+    [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Mobile (iPhone SE) - Dashboard Home 
+    [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Tablet (iPad) - Dashboard Home 
+    [chromium] › tests/comprehensive-multi-device-verification.spec.js:36:7 › Comprehensive Multi-Device Verification › Desktop (Full HD) - Dashboard Home 
+  7 passed (42.5s)
